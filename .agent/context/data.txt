@@ -1,0 +1,72 @@
+DATA DESCRIPTION
+================
+This project uses multiple datasets from different sources.
+Each dataset is documented in its own section below.
+Add a new section whenever a new data source is introduced.
+
+---
+
+DATASET 1: Police Violation Records
+-------------------------------------
+File:    ML/data/raw/jan to may police violation_anonymized791b166.csv
+Source:  Bengaluru Traffic Police (ASTraM) — provided by hackathon organisers
+Period:  January to May (year TBC)
+Type:    Tabular, anonymized enforcement records
+
+Columns:
+  [fill in column names and definitions after initial EDA]
+  e.g.:
+  violation_id     — unique record identifier
+  location         — [area name / coordinates / zone code]
+  violation_type   — [category of violation, e.g. illegal parking]
+  timestamp        — [date/time of the violation record]
+  ...
+
+Notes:
+  Rows:     [N — fill after loading]
+  Nulls:    [fill after EDA]
+  Units:    [fill after EDA]
+  Encoding: anonymized — no PII present
+
+---
+
+DATASET 2: [Name]
+-------------------
+File:    [path]
+Source:  [where it came from]
+Type:    [tabular / geospatial / video / API]
+
+Columns:
+  [fill in]
+
+Notes:
+  [fill in]
+
+---
+
+DATASET 3: [Name]
+-------------------
+File:    [path]
+Source:  [where it came from]
+Type:    [tabular / geospatial / video / API]
+
+Columns:
+  [fill in]
+
+Notes:
+  [fill in]
+
+---
+
+GEOSPATIAL NOTES (shared across datasets)
+------------------------------------------
+  CRS / projection:  [e.g. WGS84 / EPSG:4326]
+  Map provider:      MapmyIndia (provided by hackathon)
+  Coordinate format: [lat/lon or x/y — fill after checking data]
+
+---
+
+FEATURE ENGINEERING INDEX
+--------------------------
+See ML/data/processed/features_index.md for every derived parquet:
+what it contains, which notebook produced it, and which datasets it was built from.

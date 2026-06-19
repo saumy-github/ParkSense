@@ -1,0 +1,107 @@
+COMPETITION OVERVIEW
+====================
+Flipkart Gridlock Hackathon 2.0 — Round 2 (Prototype Phase)
+Hosted on HackerEarth | Organised by Flipkart × Bengaluru Traffic Police (ASTraM)
+
+---
+
+PROBLEM DESCRIPTION
+-------------------
+Theme 1 (selected): Poor Visibility on Parking-Induced Congestion
+
+Operational challenge:
+  On-street illegal parking and spillover parking near commercial areas, metro
+  stations, and events choke carriageways and intersections. Enforcement is
+  patrol-based and reactive. There is no heatmap of parking violations vs.
+  congestion impact, and it is difficult to prioritise enforcement zones.
+
+Problem statement direction:
+  How can AI-driven parking intelligence detect illegal parking hotspots and
+  quantify their impact on traffic flow to enable targeted enforcement?
+
+Broader context:
+  Bengaluru (14M+ population) loses billions of productive hours annually to
+  chronic traffic congestion. CCTV cameras are deployed city-wide by the
+  Bengaluru Traffic Police but most analysis is still manual, limiting speed,
+  accuracy, and scale. The hackathon asks participants to design AI solutions
+  that classify congestion, detect violations, identify movement patterns, and
+  support smarter mobility decisions — built on real data, not simulations.
+
+This round (Round 2) is a PROTOTYPE phase. We are building a working prototype,
+not just an ML model. The solution must demonstrate real-world viability.
+
+---
+
+EVALUATION CRITERIA (Round 2 — Prototype)
+------------------------------------------
+Judging is qualitative, assessed by an expert panel including police officials:
+  - Solution robustness
+  - Innovation
+  - Prototype clarity
+  - Scalability
+  - Real-world viability for Bengaluru's traffic
+
+(Phase 1 leaderboard used R² against hidden labels; Phase 2 shifts to prototype
+quality — there is no single numeric metric for this round.)
+
+---
+
+SUBMISSION FORMAT
+-----------------
+  Type:           Active product prototype + documentation
+  Submission via: HackerEarth platform
+  Final round:    In-person demo at Flipkart HQ, Bengaluru (July 3, 2026)
+
+---
+
+TIMELINE
+--------
+  Phase 1 (Online ML Challenge):    May 26 – June 7, 2026
+  Phase 2 (Prototype Development):  June 8 – June 21, 2026  ← WE ARE HERE
+    Round 2 window:                 June 15 – June 21, 2026 (10 PM – 11:59 PM UTC)
+  Phase 3 (Onsite Finale):          July 3, 2026 — Flipkart HQ, Bengaluru
+
+---
+
+PRIZES
+------
+  1st place:        ₹2,25,000
+  2nd place:        ₹1,75,000
+  3rd place:        ₹1,00,000
+  Top 10 finalists: Certificate + corporate merchandise
+  Total pool:       ₹5,00,000
+
+---
+
+DATA / TECHNICAL REQUIREMENTS
+------------------------------
+  Dataset:        Bengaluru Traffic Police (ASTraM) historical CCTV data +
+                  MapmyIndia geographic datasets (provided in Phase 2)
+  Internet:       Yes (online submission)
+  Team size:      Up to 4 members
+  Participants:   ~1,600 registered
+
+---
+
+PARTNERS
+--------
+  Flipkart, Bengaluru Traffic Police (ASTraM), MapmyIndia, HackerEarth
+
+---
+
+SOURCES
+-------
+  [1] Hackathon event page (Round 2):
+      https://www.hackerearth.com/community/challenges/hackathon/gridlock-hackathon-20-round-2/
+
+  [2] Official hackathon landing page:
+      https://gridlock2point0.hackerearth.com/
+
+  [3] Gridlock 2.0 main challenge page (Phase 1 leaderboard, rules):
+      https://www.hackerearth.com/community/challenges/competitive/gridlock-hackathon-20/
+
+  [4] Third-party summary with prize and timeline details:
+      https://coursejoiner.com/hackathon/flipkart-gridlock-hackathon-2026/
+
+  [5] Community reference repo:
+      https://github.com/Bannysukumar/Gridlock-Hackathon-2.0

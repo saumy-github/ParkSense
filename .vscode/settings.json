@@ -1,0 +1,6 @@
+{
+  "python.defaultInterpreterPath": "/home/saumy/Documents/gen_venv/bin/python",
+  "postman.settings.dotenv-detection-notification-visibility": false,
+  "css.lint.unknownAtRules": "ignore",
+  "python.terminal.activateEnvironment": true
+}
