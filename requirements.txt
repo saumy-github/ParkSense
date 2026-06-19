@@ -7,3 +7,5 @@ CatBoost
 XGBoost
 ipykernel
 nbstripout
+fastapi
+uvicorn

@@ -1,0 +1,28 @@
+[
+  {
+    "cluster_id": 1,
+    "cluster_name": "Shivajinagar - Tasker Town Hub",
+    "center_latitude": 12.982688,
+    "center_longitude": 77.607130,
+    "representative_junction": "Aruna Chouhan Muduar Road",
+    "police_station_jurisdiction": "Shivajinagar PS",
+    "congestion_impact_score": 92.4,
+    "total_incident_count": 1420,
+    "primary_peak_minute_of_day": 560,
+    "primary_peak_time_string": "09:20 AM",
+    "priority_level": "CRITICAL"
+  },
+  {
+    "cluster_id": 2,
+    "cluster_name": "Malleshwaram - Orion Ring Road",
+    "center_latitude": 13.011967,
+    "center_longitude": 77.554469,
+    "representative_junction": "80 Feet Ring Road",
+    "police_station_jurisdiction": "Malleshwaram PS",
+    "congestion_impact_score": 68.1,
+    "total_incident_count": 845,
+    "primary_peak_minute_of_day": 585,
+    "primary_peak_time_string": "09:45 AM",
+    "priority_level": "HIGH"
+  }
+]
