@@ -1,6 +1,7 @@
 # data
 ML/data/raw/
 ML/data/processed/*.parquet
+ML/data/processed/*.csv
 
 # models
 ML/notebooks/*/models/
