@@ -4,6 +4,7 @@ ML/data/raw/*
 ML/data/processed/*.parquet
 ML/data/processed/*.csv
 ML/data/processed/*.json
+ML/data/model/*.pkl
 
 # models
 ML/notebooks/*/models/
