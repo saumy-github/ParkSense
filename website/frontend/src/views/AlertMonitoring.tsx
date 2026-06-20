@@ -13,9 +13,10 @@ interface AlertCard {
 
 interface AlertMonitoringProps {
   customReportCount: number;
+  showToast?: (message: string, type: 'success' | 'error' | 'warning' | 'info') => void;
 }
 
-export default function AlertMonitoring({ customReportCount }: AlertMonitoringProps) {
+export default function AlertMonitoring({ customReportCount, showToast }: AlertMonitoringProps) {
   const [alertList, setAlertList] = useState<AlertCard[]>([
     {
       id: '#8891-A',
@@ -70,12 +71,12 @@ export default function AlertMonitoring({ customReportCount }: AlertMonitoringPr
   }, [customReportCount]);
 
   const handleDispatch = (id: string) => {
-    alert(`Patrol Unit dispatched to verify ${id}. Estimated Time of Arrival: 4 minutes.`);
+    showToast?.(`Patrol Unit dispatched to verify ${id}. ETA: 4 minutes.`, 'success');
     setDispatchedIds(prev => [...prev, id]);
   };
 
   const handleIssueChallan = (id: string) => {
-    alert(`E-Challan generated successfully for ${id}. SMS alert and digital fine forwarded to regional RTO database.`);
+    showToast?.(`E-Challan generated for ${id}. RTO database synced.`, 'success');
     setResolvedIds(prev => [...prev, id]);
   };
 

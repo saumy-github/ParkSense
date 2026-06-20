@@ -19,6 +19,7 @@ interface ControlCenterProps {
   activeHotspotId: number | null;
   setActiveHotspotId: (id: number | null) => void;
   customReportCount: number;
+  showToast?: (message: string, type: 'success' | 'error' | 'warning' | 'info') => void;
 }
 
 interface EventItem {
@@ -65,7 +66,7 @@ const EVENTS: EventItem[] = [
   }
 ];
 
-export default function ControlCenter({ hotspots, activeHotspotId, setActiveHotspotId, customReportCount }: ControlCenterProps) {
+export default function ControlCenter({ hotspots, activeHotspotId, setActiveHotspotId, customReportCount, showToast }: ControlCenterProps) {
 
   useEffect(() => {
     // Set theme to dark for Operator Dashboard
@@ -89,8 +90,9 @@ export default function ControlCenter({ hotspots, activeHotspotId, setActiveHots
     }
   }
 
-  const handleEventClick = (clusterId: number) => {
+  const handleEventClick = (clusterId: number, title: string) => {
     setActiveHotspotId(clusterId);
+    showToast?.(`Focused live map on ${title}`, 'info');
   };
 
   return (
@@ -195,7 +197,7 @@ export default function ControlCenter({ hotspots, activeHotspotId, setActiveHots
               return (
                 <div 
                   key={event.id}
-                  onClick={() => handleEventClick(event.clusterId)}
+                  onClick={() => handleEventClick(event.clusterId, event.title)}
                   className={`p-4 rounded-2xl border transition-all duration-300 flex gap-4 cursor-pointer hover:bg-[#0d2238] ${
                     isSelected ? 'border-primary bg-[#0d2238]' : 'border-outline-variant/20 bg-[#0d2238]/30'
                   }`}

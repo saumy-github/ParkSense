@@ -71,7 +71,7 @@ export default function LandingPage({ setActivePage, isLoggedIn, userRole }: Lan
       if (userRole === 'operator') {
         setActivePage('dashboard');
       } else {
-        setActivePage('booking');
+        setActivePage('reporting');
       }
     } else {
       setActivePage('login');
@@ -98,15 +98,16 @@ export default function LandingPage({ setActivePage, isLoggedIn, userRole }: Lan
               <div className="flex flex-wrap gap-4 pt-2">
                 <button 
                   onClick={handleCTA}
-                  className="bg-secondary text-on-secondary px-6 py-3 rounded-lg font-bold text-xs hover:bg-primary transition-colors active:scale-98"
+                  className="bg-primary text-on-primary px-6 py-3 rounded-xl font-bold text-sm hover:bg-secondary transition-all active:scale-[0.98] shadow-lg shadow-primary/20 flex items-center gap-2"
                 >
-                  Enter Portal Console
+                  <span className="material-symbols-outlined text-base">login</span>
+                  {isLoggedIn ? 'Open Console' : 'Get Started'}
                 </button>
                 <button 
-                  onClick={() => setActivePage('roadmap')}
-                  className="border border-outline text-primary px-6 py-3 rounded-lg font-bold text-xs hover:bg-surface-container-low transition-colors flex items-center gap-1 active:scale-98"
+                  onClick={() => setActivePage('login')}
+                  className="border border-primary/30 text-primary bg-primary-container/10 px-6 py-3 rounded-xl font-bold text-sm hover:bg-primary-container/20 transition-colors flex items-center gap-2 active:scale-[0.98]"
                 >
-                  Technical Roadmap <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                  Report a Violation <span className="material-symbols-outlined text-sm">arrow_forward</span>
                 </button>
               </div>
             </div>
