@@ -1,15 +1,16 @@
-import { useState } from 'react';
+import React, { useState, Suspense } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Shield, User, AlertCircle, ArrowLeft } from 'lucide-react';
 // @ts-ignore
-import Lightfall from '../components/Lightfall';
+const Lightfall = React.lazy(() => import('../components/Lightfall'));
 
 interface LoginProps {
   onLogin: (role: 'operator' | 'citizen') => void;
-  setActivePage: (page: string) => void;
   showToast: (message: string, type: 'success' | 'error' | 'warning' | 'info') => void;
 }
 
-export default function Login({ onLogin, setActivePage, showToast }: LoginProps) {
+export default function Login({ onLogin, showToast }: LoginProps) {
+  const navigate = useNavigate();
   const [selectedRole, setSelectedRole] = useState<'operator' | 'citizen'>('operator');
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -37,26 +38,28 @@ export default function Login({ onLogin, setActivePage, showToast }: LoginProps)
     >
       {/* Background canvas wrapper */}
       <div className="absolute inset-0 w-full h-full z-0">
-        <Lightfall
-          colors={['#A6C8FF', '#5227FF', '#FF9FFC']}
-          backgroundColor="#0A29FF"
-          speed={0.5}
-          streakCount={2}
-          streakWidth={1}
-          streakLength={1}
-          glow={1}
-          density={0.6}
-          twinkle={1}
-          zoom={3}
-          backgroundGlow={0.5}
-          opacity={1}
-          mouseInteraction
-          mouseStrength={0.5}
-          mouseRadius={1}
-          color1="#A6C8FF"
-          color2="#5227FF"
-          color3="#FF9FFC"
-        />
+        <Suspense fallback={<div className="w-full h-full bg-[#0A29FF]" />}>
+          <Lightfall
+            colors={['#A6C8FF', '#5227FF', '#FF9FFC']}
+            backgroundColor="#0A29FF"
+            speed={0.5}
+            streakCount={2}
+            streakWidth={1}
+            streakLength={1}
+            glow={1}
+            density={0.6}
+            twinkle={1}
+            zoom={3}
+            backgroundGlow={0.5}
+            opacity={1}
+            mouseInteraction
+            mouseStrength={0.5}
+            mouseRadius={1}
+            color1="#A6C8FF"
+            color2="#5227FF"
+            color3="#FF9FFC"
+          />
+        </Suspense>
       </div>
 
       {/* Card — max 90vh so it never overflows */}
@@ -134,7 +137,7 @@ export default function Login({ onLogin, setActivePage, showToast }: LoginProps)
             </div>
             <button
               type="button"
-              onClick={() => setActivePage('home')}
+              onClick={() => navigate('/')}
               className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-blue-400 transition-colors shrink-0 mt-1 ml-4 cursor-pointer"
             >
               <ArrowLeft className="w-3.5 h-3.5" />

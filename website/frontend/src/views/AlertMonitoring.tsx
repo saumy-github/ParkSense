@@ -176,7 +176,7 @@ export default function AlertMonitoring({ customReportCount, showToast }: AlertM
                     </div>
 
                     {/* Details */}
-                    <div className="flex-grow min-w-0">
+                    <div className="grow min-w-0">
                       <div className="flex justify-between items-start mb-2">
                         <div>
                           <span className={`font-mono text-[10px] tracking-widest uppercase font-bold ${isCritical ? 'text-error' : 'text-secondary'}`}>
@@ -205,7 +205,7 @@ export default function AlertMonitoring({ customReportCount, showToast }: AlertM
                         
                         <button 
                           onClick={() => handleIssueChallan(alert.id)}
-                          className="px-4 py-2 bg-secondary text-on-secondary hover:bg-secondary/90 text-on-surface rounded-lg font-bold text-xs hover:bg-surface-variant active:scale-95 transition-all"
+                          className="px-4 py-2 bg-secondary text-on-secondary hover:bg-secondary/90 rounded-lg font-bold text-xs active:scale-95 transition-all"
                         >
                           Issue E-Challan
                         </button>
@@ -248,13 +248,13 @@ export default function AlertMonitoring({ customReportCount, showToast }: AlertM
 
         {/* Right Side: Stream logs */}
         <div className="xl:col-span-4 space-y-6">
-          <div className="glass-panel rounded-3xl overflow-hidden border border-outline-variant/20 bg-[#0d2238]/60 flex flex-col h-[520px]">
+          <div className="glass-panel rounded-3xl overflow-hidden border border-outline-variant/20 bg-[#0d2238]/60 flex flex-col h-130">
             <div className="p-4 border-b border-outline-variant/30 bg-[#0d2238] flex items-center justify-between">
               <h3 className="text-xs font-bold uppercase tracking-wider text-primary">Live Activity Stream</h3>
               <span className="w-2.5 h-2.5 rounded-full bg-primary animate-ping"></span>
             </div>
             
-            <div className="flex-grow overflow-y-auto pr-1 p-4 space-y-4 hide-scrollbar">
+            <div className="grow overflow-y-auto pr-1 p-4 space-y-4 hide-scrollbar">
               <div className="flex gap-4 pl-3 pb-4 border-b border-outline-variant/10">
                 <span className="material-symbols-outlined text-primary text-xl shrink-0">psychology</span>
                 <div>

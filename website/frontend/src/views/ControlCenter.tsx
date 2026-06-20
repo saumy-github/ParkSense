@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import MapComponent from '../components/MapComponent';
+import React, { useEffect, Suspense } from 'react';
+const MapComponent = React.lazy(() => import('../components/MapComponent'));
 
 interface HotspotSummary {
   cluster_id: number;
@@ -152,7 +152,7 @@ export default function ControlCenter({ hotspots, activeHotspotId, setActiveHots
             <div className="flex-1 bg-primary/25 rounded-t h-[80%]"></div>
             <div className="flex-1 bg-primary/40 rounded-t h-[55%]"></div>
             <div className="flex-1 bg-primary/60 rounded-t h-[90%]"></div>
-            <div className="flex-1 bg-primary rounded-t h-[100%] shadow-[0_0_10px_#00f0ff]"></div>
+            <div className="flex-1 bg-primary rounded-t h-full shadow-[0_0_10px_#00f0ff]"></div>
           </div>
         </div>
       </section>
@@ -160,7 +160,7 @@ export default function ControlCenter({ hotspots, activeHotspotId, setActiveHots
       {/* Bento Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Map panel */}
-        <div className="lg:col-span-8 glass-panel rounded-3xl overflow-hidden border border-outline-variant/30 bg-[#0d2238]/60 relative h-[500px] flex flex-col">
+        <div className="lg:col-span-8 glass-panel rounded-3xl overflow-hidden border border-outline-variant/30 bg-[#0d2238]/60 relative h-125 flex flex-col">
           <div className="p-4 bg-[#0d2238] border-b border-outline-variant/30 flex justify-between items-center z-10">
             <div>
               <p className="text-xs uppercase font-bold tracking-wider text-primary">Live Enforcement Heatmap</p>
@@ -175,23 +175,25 @@ export default function ControlCenter({ hotspots, activeHotspotId, setActiveHots
               </button>
             )}
           </div>
-          <div className="flex-grow">
-            <MapComponent 
-              hotspots={hotspots}
-              selectedId={activeHotspotId}
-              onSelectHotspot={setActiveHotspotId}
-            />
+          <div className="grow">
+            <Suspense fallback={<div className="w-full h-full bg-[#051424] flex items-center justify-center"><div className="w-8 h-8 border-4 border-primary/20 border-t-primary rounded-full animate-spin" /></div>}>
+              <MapComponent
+                hotspots={hotspots}
+                selectedId={activeHotspotId}
+                onSelectHotspot={setActiveHotspotId}
+              />
+            </Suspense>
           </div>
         </div>
 
         {/* Live Feed panel */}
-        <div className="lg:col-span-4 glass-panel rounded-3xl p-6 border border-outline-variant/30 bg-[#0d2238]/60 flex flex-col h-[500px]">
+        <div className="lg:col-span-4 glass-panel rounded-3xl p-6 border border-outline-variant/30 bg-[#0d2238]/60 flex flex-col h-125">
           <div className="flex items-center justify-between mb-6">
             <h3 className="text-base font-semibold text-primary">Live Violation Feed</h3>
             <span className="material-symbols-outlined text-primary text-[18px] animate-pulse">sensors</span>
           </div>
           
-          <div className="flex-grow space-y-4 overflow-y-auto pr-1 hide-scrollbar">
+          <div className="grow space-y-4 overflow-y-auto pr-1 hide-scrollbar">
             {dynamicEvents.map((event) => {
               const isSelected = activeHotspotId === event.clusterId;
               return (
@@ -209,7 +211,7 @@ export default function ControlCenter({ hotspots, activeHotspotId, setActiveHots
                       src={event.img}
                     />
                   </div>
-                  <div className="flex-grow min-w-0">
+                  <div className="grow min-w-0">
                     <div className="flex justify-between items-start">
                       <span className="text-[10px] font-bold uppercase tracking-wider text-secondary">
                         {event.title}

@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import MapComponent from '../components/MapComponent';
+import React, { useEffect, useState, Suspense } from 'react';
+const MapComponent = React.lazy(() => import('../components/MapComponent'));
 
 interface HotspotSummary {
   cluster_id: number;
@@ -35,11 +35,13 @@ export default function InfrastructureMap({ hotspots, activeHotspotId, setActive
       
       {/* Full-Bleed Map Canvas */}
       <div className="absolute inset-0 z-0">
-        <MapComponent 
-          hotspots={hotspots}
-          selectedId={activeHotspotId}
-          onSelectHotspot={setActiveHotspotId}
-        />
+        <Suspense fallback={<div className="w-full h-full bg-[#051424] flex items-center justify-center"><div className="w-8 h-8 border-4 border-primary/20 border-t-primary rounded-full animate-spin" /></div>}>
+          <MapComponent
+            hotspots={hotspots}
+            selectedId={activeHotspotId}
+            onSelectHotspot={setActiveHotspotId}
+          />
+        </Suspense>
       </div>
 
       {/* Floating Map Layer Control (Bottom Left) */}

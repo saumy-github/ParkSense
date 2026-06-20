@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface ScrollRevealProps {
   children: React.ReactNode;
@@ -51,12 +52,12 @@ function ScrollReveal({ children, className = '', delay = 0 }: ScrollRevealProps
 }
 
 interface LandingPageProps {
-  setActivePage: (page: string) => void;
   isLoggedIn: boolean;
   userRole: 'operator' | 'citizen' | null;
 }
 
-export default function LandingPage({ setActivePage, isLoggedIn, userRole }: LandingPageProps) {
+export default function LandingPage({ isLoggedIn, userRole }: LandingPageProps) {
+  const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState<string>('sensor-1');
 
   useEffect(() => {
@@ -68,13 +69,9 @@ export default function LandingPage({ setActivePage, isLoggedIn, userRole }: Lan
 
   const handleCTA = () => {
     if (isLoggedIn) {
-      if (userRole === 'operator') {
-        setActivePage('dashboard');
-      } else {
-        setActivePage('reporting');
-      }
+      navigate(userRole === 'operator' ? '/dashboard' : '/reporting');
     } else {
-      setActivePage('login');
+      navigate('/login');
     }
   };
 
@@ -104,7 +101,7 @@ export default function LandingPage({ setActivePage, isLoggedIn, userRole }: Lan
                   {isLoggedIn ? 'Open Console' : 'Get Started'}
                 </button>
                 <button 
-                  onClick={() => setActivePage('login')}
+                  onClick={() => navigate('/login')}
                   className="border border-primary/30 text-primary bg-primary-container/10 px-6 py-3 rounded-xl font-bold text-sm hover:bg-primary-container/20 transition-colors flex items-center gap-2 active:scale-[0.98]"
                 >
                   Report a Violation <span className="material-symbols-outlined text-sm">arrow_forward</span>
@@ -120,7 +117,7 @@ export default function LandingPage({ setActivePage, isLoggedIn, userRole }: Lan
                     className="w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-700" 
                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgQdR7w68-bx5FyAG1XRQvulijDFt36wBQJ8CQy92eXmNsPPaOsShhE3AEdIJZ_L98L_VVGXVsZVJeKruCHn_IP7238YNjNQ3gbbwCP3TqEPlRR2sOEVYpVgUHp6cx4HWAhjRJdSLns5BqIV-UCkVKbmejeyj41m1FEeUs503b5UOKHtjZBuSR1khaRb4KpaYFoyhslFZDXbIwCTWhxmWeLfjgSSvc65ZirMCWoyO4sUCyCBcNuK2jD_TrtbYIuKi6OApTArfTtfCS"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 to-transparent"></div>
+                  <div className="absolute inset-0 bg-linear-to-tr from-primary/10 to-transparent"></div>
                 </div>
               </div>
             </div>
@@ -185,7 +182,7 @@ export default function LandingPage({ setActivePage, isLoggedIn, userRole }: Lan
             </div>
 
             {/* Graphic Panel showing active states */}
-            <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant/60 p-6 flex items-center justify-center min-h-[350px]">
+            <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant/60 p-6 flex items-center justify-center min-h-87.5">
               <div className="w-full max-w-sm relative">
                 <svg className="w-full h-full text-outline-variant fill-none stroke-current" strokeWidth="1" viewBox="0 0 400 400">
                   <path className="opacity-20" d="M50 100 L350 100 M50 200 L350 200 M50 300 L350 300"></path>
@@ -334,7 +331,7 @@ export default function LandingPage({ setActivePage, isLoggedIn, userRole }: Lan
           </ScrollReveal>
 
           <ScrollReveal delay={300}>
-            <div className="bg-primary text-on-primary p-8 rounded-2xl hover:shadow-md transition-all flex flex-col justify-between min-h-[220px] h-full">
+            <div className="bg-primary text-on-primary p-8 rounded-2xl hover:shadow-md transition-all flex flex-col justify-between min-h-220px h-full">
               <span className="material-symbols-outlined text-secondary-fixed text-3xl">account_balance_wallet</span>
               <div className="space-y-1">
                 <h4 className="font-bold text-lg text-white">Dynamic Yield Management</h4>
@@ -370,7 +367,7 @@ export default function LandingPage({ setActivePage, isLoggedIn, userRole }: Lan
                 Access Portal Console
               </button>
               <button 
-                onClick={() => setActivePage('roadmap')}
+                onClick={() => navigate('/login')}
                 className="border border-on-primary-container text-white px-8 py-3 rounded-lg font-bold text-xs hover:bg-white/10 transition-all active:scale-95"
               >
                 View Roadmap

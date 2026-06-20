@@ -1,18 +1,17 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { AlertTriangle, RefreshCw, CheckCircle, Info, X } from 'lucide-react';
 
-// Import layout components
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 
-// Import views
-import ControlCenter from './views/ControlCenter';
-import PerformanceReports from './views/PerformanceReports';
-import AlertMonitoring from './views/AlertMonitoring';
-import BookingFlow from './views/BookingFlow';
-import InfrastructureMap from './views/InfrastructureMap';
-import Login from './views/Login';
-import LandingPage from './views/LandingPage';
+const ControlCenter = React.lazy(() => import('./views/ControlCenter'));
+const PerformanceReports = React.lazy(() => import('./views/PerformanceReports'));
+const AlertMonitoring = React.lazy(() => import('./views/AlertMonitoring'));
+const BookingFlow = React.lazy(() => import('./views/BookingFlow'));
+const InfrastructureMap = React.lazy(() => import('./views/InfrastructureMap'));
+const Login = React.lazy(() => import('./views/Login'));
+const LandingPage = React.lazy(() => import('./views/LandingPage'));
 
 interface HotspotSummary {
   cluster_id: number;
@@ -33,22 +32,36 @@ interface Toast {
   type: 'success' | 'error' | 'warning' | 'info';
 }
 
+function ProtectedRoute({
+  children,
+  isLoggedIn,
+  requiredRole,
+  userRole,
+}: {
+  children: React.ReactElement;
+  isLoggedIn: boolean;
+  requiredRole?: 'operator' | 'citizen';
+  userRole: 'operator' | 'citizen' | null;
+}) {
+  if (!isLoggedIn) return <Navigate to="/login" replace />;
+  if (requiredRole === 'operator' && userRole !== 'operator') return <Navigate to="/reporting" replace />;
+  return children;
+}
+
 function App() {
-  const [activePage, setActivePage] = useState<string>('home');
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [userRole, setUserRole] = useState<'operator' | 'citizen' | null>(null);
   const [customReportCount, setCustomReportCount] = useState<number>(0);
-  const [searchQuery, setSearchQuery] = useState<string>(() => {
-    // Prevent lint issue TS6133
-    return '';
-  });
-  
+  const [searchQuery, setSearchQuery] = useState<string>('');
+
   const [hotspots, setHotspots] = useState<HotspotSummary[]>([]);
   const [activeHotspotId, setActiveHotspotId] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  
-  // Toast notifications state
+
   const [toasts, setToasts] = useState<Toast[]>([]);
 
   const showToast = (message: string, type: 'success' | 'error' | 'warning' | 'info' = 'info') => {
@@ -63,24 +76,18 @@ function App() {
     setToasts(prev => prev.filter(t => t.id !== id));
   };
 
-  // Fetch hotspots data from backend
   const fetchHotspots = async () => {
     try {
       setLoading(true);
       setError(null);
       const response = await fetch('/api/hotspots');
-      if (!response.ok) {
-        throw new Error('Failed to fetch hotspots data from server.');
-      }
+      if (!response.ok) throw new Error('Failed to fetch hotspots data from server.');
       const data = await response.json();
-      
       const mappedData = data.map((item: any) => ({
         ...item,
-        priority_level: item.priority_level ? item.priority_level.toUpperCase() : 'MEDIUM'
+        priority_level: item.priority_level ? item.priority_level.toUpperCase() : 'MEDIUM',
       }));
-
       setHotspots(mappedData);
-      
       if (mappedData.length > 0 && !activeHotspotId) {
         setActiveHotspotId(mappedData[0].cluster_id);
       }
@@ -96,78 +103,20 @@ function App() {
     fetchHotspots();
   }, []);
 
-  // Sync hash routing
-  useEffect(() => {
-    const handleHashChange = () => {
-      const rawHash = window.location.hash;
-      const hash = rawHash.replace('#/', '').replace('#', '');
-      
-      // Public pages accessible without login
-      const publicPages = ['home', 'login', ''];
-      // Protected operator-only pages
-      const operatorPages = ['dashboard', 'map', 'alerts', 'analytics'];
-      const allValidPages = ['home', 'login', 'dashboard', 'map', 'alerts', 'reporting', 'analytics'];
-
-      // Empty hash or root → show landing page for guests, dashboard for operators
-      if (!hash || hash === '/') {
-        if (isLoggedIn) {
-          window.location.hash = userRole === 'operator' ? '#/dashboard' : '#/reporting';
-        } else {
-          setActivePage('home');
-        }
-        return;
-      }
-
-      // Security: protect operator-only pages
-      if (!isLoggedIn) {
-        if (operatorPages.includes(hash) || hash === 'reporting') {
-          // Only operator/console pages need auth — redirect to login
-          window.location.hash = '#/login';
-          showToast('Please log in to access this page.', 'warning');
-        } else if (publicPages.includes(hash)) {
-          setActivePage(hash);
-        } else {
-          setActivePage('home');
-        }
-      } else {
-        // Logged in: citizens can only access reporting
-        if (userRole === 'citizen' && operatorPages.includes(hash)) {
-          window.location.hash = '#/reporting';
-          showToast('Unauthorized access. Redirected to Citizen Console.', 'warning');
-        } else if (allValidPages.includes(hash)) {
-          setActivePage(hash);
-        } else {
-          window.location.hash = userRole === 'operator' ? '#/dashboard' : '#/reporting';
-        }
-      }
-    };
-
-    window.addEventListener('hashchange', handleHashChange);
-    handleHashChange(); // run on load
-
-    return () => {
-      window.removeEventListener('hashchange', handleHashChange);
-    };
-  }, [isLoggedIn, userRole]);
-
   const handleLogin = (role: 'operator' | 'citizen') => {
-    const targetPage = role === 'operator' ? 'dashboard' : 'reporting';
     setIsLoggedIn(true);
     setUserRole(role);
-    setActivePage(targetPage); // Set directly — don't rely on hash listener (state is async)
     showToast(`Welcome back, ${role === 'operator' ? 'Traffic Officer' : 'Citizen Reporter'}!`, 'success');
-    window.location.hash = `#/${targetPage}`;
+    navigate(role === 'operator' ? '/dashboard' : '/reporting');
   };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
     setUserRole(null);
-    setActivePage('home'); // Set directly
     showToast('Logged out successfully.', 'info');
-    window.location.hash = '#/';
+    navigate('/');
   };
 
-  // Deploy Unit simulation
   const handleDeployUnit = () => {
     showToast('Patrol dispatch initialized. Enforcement vehicle is en-route.', 'success');
   };
@@ -177,57 +126,6 @@ function App() {
     showToast('Incident report logged in. Operator console updated.', 'success');
   };
 
-  // Render active view
-  const renderView = () => {
-    switch (activePage) {
-      case 'home':
-        return <LandingPage setActivePage={(page) => { window.location.hash = `#/${page}`; }} isLoggedIn={isLoggedIn} userRole={userRole} />;
-      case 'login':
-        return <Login onLogin={handleLogin} setActivePage={(page) => { window.location.hash = `#/${page}`; }} showToast={showToast} />;
-      case 'reporting':
-        return <BookingFlow onReportSubmit={handleReportViolationSubmit} showToast={showToast} />;
-      
-      // Protected Operator views
-      case 'dashboard': {
-        const filteredHotspots = hotspots.filter(h => 
-          h.cluster_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          h.police_station_jurisdiction.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          h.representative_junction.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-        return (
-          <ControlCenter 
-            hotspots={filteredHotspots}
-            activeHotspotId={activeHotspotId}
-            setActiveHotspotId={setActiveHotspotId}
-            customReportCount={customReportCount}
-            showToast={showToast}
-          />
-        );
-      }
-      case 'map': {
-        const filteredHotspotsMap = hotspots.filter(h => 
-          h.cluster_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          h.police_station_jurisdiction.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          h.representative_junction.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-        return (
-          <InfrastructureMap 
-            hotspots={filteredHotspotsMap}
-            activeHotspotId={activeHotspotId}
-            setActiveHotspotId={setActiveHotspotId}
-          />
-        );
-      }
-      case 'alerts':
-        return <AlertMonitoring customReportCount={customReportCount} showToast={showToast} />;
-      case 'analytics':
-        return <PerformanceReports />;
-      default:
-        return <LandingPage setActivePage={(page) => { window.location.hash = `#/${page}`; }} isLoggedIn={isLoggedIn} userRole={userRole} />;
-    }
-  };
-
-  // Render loading state
   if (loading) {
     return (
       <div className="flex flex-col justify-center items-center h-screen bg-[#051424] text-[#d4e4fa] gap-4">
@@ -237,15 +135,14 @@ function App() {
     );
   }
 
-  // Render connection error screen
   if (error) {
     return (
       <div className="flex flex-col justify-center items-center h-screen bg-[#051424] text-[#d4e4fa] gap-6 p-6 text-center">
         <AlertTriangle size={48} className="text-error" />
         <h3 className="text-xl font-bold tracking-wide text-primary">Connection Failed</h3>
         <p className="max-w-md text-sm text-on-surface-variant">{error}</p>
-        <button 
-          onClick={fetchHotspots} 
+        <button
+          onClick={fetchHotspots}
           className="flex items-center gap-2 px-5 py-2.5 bg-primary text-on-primary rounded-xl font-bold text-sm shadow-[0_0_15px_rgba(0,240,255,0.3)] active:scale-95 transition-all"
         >
           <RefreshCw size={16} /> Re-try Connection
@@ -254,12 +151,12 @@ function App() {
     );
   }
 
-  const isOperatorPage = ['dashboard', 'map', 'alerts', 'analytics'].includes(activePage);
-  const showSidebar = isOperatorPage && isLoggedIn && userRole === 'operator';
+  const pathname = location.pathname;
+  const operatorPages = ['/dashboard', '/map', '/alerts', '/analytics'];
+  const showSidebar = operatorPages.includes(pathname) && isLoggedIn && userRole === 'operator';
 
-  // Toast overlay (shared across all pages)
   const toastOverlay = (
-    <div className="fixed top-6 right-6 z-[200] flex flex-col gap-3 w-80 pointer-events-none">
+    <div className="fixed top-6 right-6 z-200 flex flex-col gap-3 w-80 pointer-events-none">
       {toasts.map((toast) => {
         const isSuccess = toast.type === 'success';
         const isError = toast.type === 'error';
@@ -296,54 +193,112 @@ function App() {
     </div>
   );
 
-  // Login page: fullscreen standalone — no Header, no sidebar, no pt-20
-  if (activePage === 'login') {
-    return (
-      <>
-        {toastOverlay}
-        <Login
-          onLogin={handleLogin}
-          setActivePage={(page) => { window.location.hash = `#/${page}`; }}
-          showToast={showToast}
-        />
-      </>
-    );
-  }
+  const filteredHotspots = hotspots.filter(h =>
+    h.cluster_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    h.police_station_jurisdiction.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    h.representative_junction.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const pageFallback = (
+    <div className="flex items-center justify-center h-screen bg-[#051424]">
+      <div className="w-8 h-8 border-4 border-primary/20 border-t-primary rounded-full animate-spin" />
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-surface transition-all duration-300 flex flex-col">
       {toastOverlay}
 
-      {/* Header on all non-login pages */}
-      <Header
-        activePage={activePage}
-        setActivePage={(page) => { window.location.hash = `#/${page}`; }}
-        isLoggedIn={isLoggedIn}
-        userRole={userRole}
-        onLogout={handleLogout}
-        onSearch={setSearchQuery}
-      />
+      <React.Suspense fallback={pageFallback}>
+      <Routes>
+        {/* Login: fullscreen, no header/sidebar */}
+        <Route
+          path="/login"
+          element={<Login onLogin={handleLogin} showToast={showToast} />}
+        />
 
-      {/* Unified Flex Layout below fixed Header */}
-      <div className="flex flex-row flex-grow w-full pt-20">
-        {/* Render Sidebar only on Operator dashboard views */}
-        {showSidebar && (
-          <Sidebar
-            activePage={activePage}
-            setActivePage={(page) => { window.location.hash = `#/${page}`; }}
-            onDeployUnit={handleDeployUnit}
-            onLogout={handleLogout}
-          />
-        )}
-
-        {/* Main page view canvas */}
-        <main className="flex-grow w-full min-h-[calc(100vh-80px)] relative">
-          {renderView()}
-        </main>
-      </div>
+        {/* All other pages share Header + optional Sidebar layout */}
+        <Route
+          path="*"
+          element={
+            <>
+              <Header
+                isLoggedIn={isLoggedIn}
+                userRole={userRole}
+                onLogout={handleLogout}
+                onSearch={setSearchQuery}
+              />
+              <div className="flex flex-row grow w-full pt-20">
+                {showSidebar && (
+                  <Sidebar
+                    onDeployUnit={handleDeployUnit}
+                    onLogout={handleLogout}
+                  />
+                )}
+                <main className="grow w-full min-h-[calc(100vh-80px)] relative">
+                  <Routes>
+                    <Route path="/" element={<LandingPage isLoggedIn={isLoggedIn} userRole={userRole} />} />
+                    <Route
+                      path="/dashboard"
+                      element={
+                        <ProtectedRoute isLoggedIn={isLoggedIn} requiredRole="operator" userRole={userRole}>
+                          <ControlCenter
+                            hotspots={filteredHotspots}
+                            activeHotspotId={activeHotspotId}
+                            setActiveHotspotId={setActiveHotspotId}
+                            customReportCount={customReportCount}
+                            showToast={showToast}
+                          />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/map"
+                      element={
+                        <ProtectedRoute isLoggedIn={isLoggedIn} requiredRole="operator" userRole={userRole}>
+                          <InfrastructureMap
+                            hotspots={filteredHotspots}
+                            activeHotspotId={activeHotspotId}
+                            setActiveHotspotId={setActiveHotspotId}
+                          />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/alerts"
+                      element={
+                        <ProtectedRoute isLoggedIn={isLoggedIn} requiredRole="operator" userRole={userRole}>
+                          <AlertMonitoring customReportCount={customReportCount} showToast={showToast} />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/analytics"
+                      element={
+                        <ProtectedRoute isLoggedIn={isLoggedIn} requiredRole="operator" userRole={userRole}>
+                          <PerformanceReports />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/reporting"
+                      element={
+                        <ProtectedRoute isLoggedIn={isLoggedIn} userRole={userRole}>
+                          <BookingFlow onReportSubmit={handleReportViolationSubmit} showToast={showToast} />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route path="*" element={<Navigate to="/" replace />} />
+                  </Routes>
+                </main>
+              </div>
+            </>
+          }
+        />
+      </Routes>
+      </React.Suspense>
     </div>
   );
 }
 
 export default App;
-
