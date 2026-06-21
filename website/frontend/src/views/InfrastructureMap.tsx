@@ -98,15 +98,15 @@ export default function InfrastructureMap({ hotspots, activeHotspotId, setActive
           {/* Status Glow Header */}
           <div className="relative bg-surface-container-high/40 rounded-xl p-4 mb-6 border border-outline-variant/20 overflow-hidden">
             <div className="absolute top-0 left-0 w-1 h-full bg-primary ai-pulse"></div>
-            <div className="flex justify-between items-center relative z-10">
-              <div className="flex flex-col">
-                <span className="text-[9px] font-bold uppercase text-primary/70 tracking-wide">Congestion Impact</span>
-                <span className="text-sm text-on-surface font-extrabold mt-0.5">
+            <div className="flex justify-between items-center relative z-10 gap-2">
+              <div className="flex flex-col min-w-0">
+                <span className="text-[9px] font-bold uppercase text-primary/70 tracking-wide leading-tight truncate">Congestion Impact</span>
+                <span className="text-sm text-on-surface font-extrabold mt-1 leading-tight truncate">
                   {activeHotspot.priority_level} LEVEL
                 </span>
               </div>
-              <div className="text-right">
-                <span className="text-2xl font-black text-primary">
+              <div className="text-right shrink-0">
+                <span className="text-2xl font-black text-primary leading-none block">
                   {activeHotspot.congestion_impact_score}<span className="text-xs font-normal opacity-70"> idx</span>
                 </span>
               </div>

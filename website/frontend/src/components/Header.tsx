@@ -54,46 +54,8 @@ export default function Header({ onSearch, isLoggedIn, userRole, onLogout }: Hea
           )}
         </div>
 
-        {/* Desktop Nav */}
-        <div className="hidden lg:flex gap-6 items-center">
-          {isOperator && (
-            <>
-              {[
-                { path: '/dashboard', label: 'Console', Icon: Home },
-                { path: '/map', label: 'Map View', Icon: MapPin },
-                { path: '/alerts', label: 'Alerts', Icon: AlertTriangle },
-                { path: '/analytics', label: 'Analytics', Icon: BarChart2 },
-              ].map(({ path, label, Icon }) => (
-                <button
-                  key={path}
-                  onClick={() => handleNavClick(path)}
-                  className={`text-xs uppercase tracking-wider font-bold transition-all duration-200 cursor-pointer py-1.5 px-3 rounded-lg flex items-center gap-1.5 ${
-                    pathname === path
-                      ? 'bg-primary-container text-primary'
-                      : 'text-on-surface-variant hover:text-primary hover:bg-surface-container-high/40'
-                  }`}
-                >
-                  <Icon className="w-3.5 h-3.5" />
-                  {label}
-                </button>
-              ))}
-            </>
-          )}
+        {/* Desktop Nav removed as items are in Sidebar */}
 
-          {isLoggedIn && (
-            <button
-              onClick={() => handleNavClick('/reporting')}
-              className={`text-xs uppercase tracking-wider font-bold transition-all duration-200 cursor-pointer py-1.5 px-3 rounded-lg flex items-center gap-1.5 ${
-                pathname === '/reporting'
-                  ? 'bg-primary-container text-primary'
-                  : 'text-on-surface-variant hover:text-primary hover:bg-surface-container-high/40'
-              }`}
-            >
-              <Shield className="w-3.5 h-3.5" />
-              Report Violation
-            </button>
-          )}
-        </div>
 
         {/* Right Side */}
         <div className="flex items-center gap-4">

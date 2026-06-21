@@ -12,6 +12,7 @@ const BookingFlow = React.lazy(() => import('./views/BookingFlow'));
 const InfrastructureMap = React.lazy(() => import('./views/InfrastructureMap'));
 const Login = React.lazy(() => import('./views/Login'));
 const LandingPage = React.lazy(() => import('./views/LandingPage'));
+const ReportedViolations = React.lazy(() => import('./views/ReportedViolations'));
 
 interface HotspotSummary {
   cluster_id: number;
@@ -135,7 +136,10 @@ function App() {
     );
   }
 
-  if (error) {
+  const pathname = location.pathname;
+  const isPublicRoute = pathname === '/' || pathname === '/login';
+
+  if (error && !isPublicRoute) {
     return (
       <div className="flex flex-col justify-center items-center h-screen bg-[#051424] text-[#d4e4fa] gap-6 p-6 text-center">
         <AlertTriangle size={48} className="text-error" />
@@ -150,9 +154,7 @@ function App() {
       </div>
     );
   }
-
-  const pathname = location.pathname;
-  const operatorPages = ['/dashboard', '/map', '/alerts', '/analytics'];
+  const operatorPages = ['/dashboard', '/map', '/alerts', '/analytics', '/reporting'];
   const showSidebar = operatorPages.includes(pathname) && isLoggedIn && userRole === 'operator';
 
   const toastOverlay = (
@@ -206,7 +208,7 @@ function App() {
   );
 
   return (
-    <div className="min-h-screen bg-surface transition-all duration-300 flex flex-col">
+    <div className="min-h-screen bg-transparent transition-all duration-300 flex flex-col">
       {toastOverlay}
 
       <React.Suspense fallback={pageFallback}>
@@ -284,7 +286,11 @@ function App() {
                       path="/reporting"
                       element={
                         <ProtectedRoute isLoggedIn={isLoggedIn} userRole={userRole}>
-                          <BookingFlow onReportSubmit={handleReportViolationSubmit} showToast={showToast} />
+                          {userRole === 'operator' ? (
+                            <ReportedViolations customReportCount={customReportCount} showToast={showToast} />
+                          ) : (
+                            <BookingFlow onReportSubmit={handleReportViolationSubmit} showToast={showToast} />
+                          )}
                         </ProtectedRoute>
                       }
                     />

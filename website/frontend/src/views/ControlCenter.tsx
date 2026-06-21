@@ -35,34 +35,64 @@ interface EventItem {
 
 const EVENTS: EventItem[] = [
   {
-    id: 'INC-8891',
+    id: 'CIT-1025',
+    type: 'double_parking',
+    title: 'Citizen Double Parking',
+    time: 'Just Now',
+    detail: 'Mercedes (MH-14-DN-8982) • Parallel Block',
+    meta: 'Prabhat Corner Deccan • EWR: 36%',
+    img: '/infraction_6.png',
+    clusterId: 6
+  },
+  {
+    id: 'DET-1021',
     type: 'double_parking',
     title: 'Double Parking Detected',
-    time: '14:02:11',
-    detail: 'SUV (KA-03-MM-1234) • Blocking lane',
-    meta: 'Aruna Chouhan Muduar Road • EWR: 36%',
-    img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD4z1V4R8kikm2sB2GRCvURwwmZvsgRGtKRrJq6MwiIAzjtywtK2r8pH7jHPeigTBjmUTM02sdJ0IpxkXeSACChV4WTuLLTnT0jpPtciF9k3juY_MLG6MqcjN1KUXcBesBiNDjnbNTfrWBsgS5zu7MAtHp0fT_5J7uymupxkELcatO7Q2_n_ls5OOPQ-zzGI3sc4rzbDKQuvT1xsUH1jCjwt-NKTz6fbXRBRzUA0G4ZS4-0XG6wn7g01-0wIao4c6PNLcqVeujvnjfL',
+    time: '15m ago',
+    detail: 'BMW (KA-03-MM-1234) • Parallel Block',
+    meta: 'Shivajinagar PS Junction • EWR: 36%',
+    img: '/infraction_1.png',
     clusterId: 1
   },
   {
-    id: 'INC-9102',
+    id: 'DET-1019',
     type: 'bus_lane',
     title: 'Bus Lane Obstruction',
-    time: '14:01:45',
-    detail: 'Hatchback (KA-04-DE-4321) • Station area',
+    time: '45m ago',
+    detail: 'Tanker (KA-04-DE-4321) • BRTS corridor',
     meta: '80 Feet Ring Road • EWR: 45%',
-    img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCKUUimumdSNERHVhvVMcZPvCrN60OhNU_FFChuYDfHwoHU-ugH7l9QLKq4nOCFMzOqIMEfLHvJzLYJtW84-L07diQ2P3lRAsinr_TzJnL71m5qh_gbWVyhNvPCWZKBTrvRMAsaf-5R-3RNMqNplIhCddnTtRwJed7Awmuu51ba5iFrHXBpOFAGFUA2FaegJJQYxg9HcIzhQfpPLcLEsky3Y2lR1TLuCvfHar3HSLz5jK-7xT9jLejPT_Y8RnzZqtce13pued7TSphC',
+    img: '/infraction_2.png',
     clusterId: 2
   },
   {
-    id: 'INC-8884',
-    type: 'sidewalk',
-    title: 'Sidewalk Encroachment',
-    time: '13:58:22',
-    detail: 'Sedan (KA-01-AB-5678) • Blocking crosswalk',
-    meta: 'Shivajinagar PS Area • Pedestrian Hazard',
-    img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD_eTOXNCZpLC7km5ijkeGzTRq0Xn8RSPMiYbDjxo0znZ5TZZxiGpYj4nfSoKuQWrpnlzzEerHMl9kfcA6Z3_qGNR7Ir_81eRJ1kiZSLMzBRmpYWIcUKUrBvzpNfdTW6m5i4qvGwhBNjY4f2eQqMAStbl6c1Yz49YK-3hPwJyi_aMFR7nvkCpfCiGpxnnI1g3YQ30d4TcOtSshHgtNMNFAlO6ntJVl47ml6cS8LJzxTzFNYgbhh2HvcEsci3nCkwcWZ0AodoE6od64N',
-    clusterId: 1
+    id: 'DET-1015',
+    type: 'double_parking',
+    title: 'Double Parking Detected',
+    time: '2h ago',
+    detail: 'Hatchback (KA-01-AB-5678) • Blocking lane',
+    meta: 'Commercial Street Entrance • EWR: 40%',
+    img: '/infraction_3.png',
+    clusterId: 3
+  },
+  {
+    id: 'DET-1008',
+    type: 'double_parking',
+    title: 'No Parking Zone Block',
+    time: '3h ago',
+    detail: 'Trailer (KA-51-JK-7890) • Heavy Obstruction',
+    meta: 'Modi Bridge Area • EWR: 55%',
+    img: '/infraction_4.png',
+    clusterId: 4
+  },
+  {
+    id: 'DET-1002',
+    type: 'bus_lane',
+    title: 'Highway Shoulder Block',
+    time: '4h ago',
+    detail: 'Chemical Tanker (KA-02-XY-9876) • Shoulder Block',
+    meta: 'NH-48 Highway Shoulder • EWR: 10%',
+    img: '/infraction_5.jpg',
+    clusterId: 5
   }
 ];
 
@@ -83,9 +113,9 @@ export default function ControlCenter({ hotspots, activeHotspotId, setActiveHots
         title: 'Citizen Incident Logged',
         time: 'Just Now',
         detail: 'Obstruction • OCR Pending Review',
-        meta: 'Shivajinagar PS Junction • SPI: 64%',
-        img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD_eTOXNCZpLC7km5ijkeGzTRq0Xn8RSPMiYbDjxo0znZ5TZZxiGpYj4nfSoKuQWrpnlzzEerHMl9kfcA6Z3_qGNR7Ir_81eRJ1kiZSLMzBRmpYWIcUKUrBvzpNfdTW6m5i4qvGwhBNjY4f2eQqMAStbl6c1Yz49YK-3hPwJyi_aMFR7nvkCpfCiGpxnnI1g3YQ30d4TcOtSshHgtNMNFAlO6ntJVl47ml6cS8LJzxTzFNYgbhh2HvcEsci3nCkwcWZ0AodoE6od64N',
-        clusterId: 1
+        meta: 'Prabhat Corner Deccan • SPI: 62%',
+        img: '/infraction_6.png',
+        clusterId: 6
       });
     }
   }
