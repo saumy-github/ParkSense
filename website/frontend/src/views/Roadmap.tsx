@@ -143,7 +143,7 @@ export default function Roadmap() {
             <div className="w-12 h-12 bg-on-primary-container flex items-center justify-center rounded-lg mx-auto">
               <span className="material-symbols-outlined text-primary-container">cloud</span>
             </div>
-            <h4 className="font-bold text-sm text-white">Cloud AI Engine</h4>
+            <h4 className="font-bold text-sm text-on-primary-container">Cloud AI Engine</h4>
             <p className="text-xs text-on-primary-container/80">Real-time Analytics & Yield Optimization</p>
           </div>
 

@@ -259,29 +259,31 @@ export default function PerformanceReports() {
         </div>
       </section>
 
-      {/* Floating Export Action Bar */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2 p-2 glass-panel rounded-full shadow-2xl border border-primary/20 bg-[#0d2238]/95">
-        <button 
-          onClick={() => alert('PDF Export complete. File downloaded.')}
-          className="flex items-center gap-2 px-6 py-3 bg-primary text-on-primary rounded-full font-bold text-sm hover:brightness-110 active:scale-95 transition-all cursor-pointer"
-        >
-          <FileText className="w-4 h-4" />
-          <span>Export Analytics PDF</span>
-        </button>
-        <button 
-          onClick={() => alert('CSV Export complete. File downloaded.')}
-          className="flex items-center gap-2 px-6 py-3 bg-surface-container-high text-primary rounded-full font-bold text-sm hover:bg-surface-container-highest active:scale-95 transition-all cursor-pointer"
-        >
-          <Download className="w-4 h-4" />
-          <span>Export CSV</span>
-        </button>
-        <div className="w-px h-8 bg-outline-variant mx-2"></div>
-        <button 
-          onClick={() => alert('Shareable link copied to clipboard.')}
-          className="p-3 rounded-full hover:bg-surface-container-high transition-colors text-primary cursor-pointer"
-        >
-          <Share2 className="w-4.5 h-4.5" />
-        </button>
+      {/* Export Action Bar */}
+      <div className="flex justify-center w-full pt-6">
+        <div className="flex flex-wrap items-center justify-center gap-2 p-2 glass-panel rounded-full shadow-2xl border border-primary/20 bg-[#0d2238]/95">
+          <button 
+            onClick={() => alert('PDF Export complete. File downloaded.')}
+            className="flex items-center gap-2 px-6 py-3 bg-primary text-on-primary rounded-full font-bold text-sm hover:brightness-110 active:scale-95 transition-all cursor-pointer"
+          >
+            <FileText className="w-4 h-4" />
+            <span>Export Analytics PDF</span>
+          </button>
+          <button 
+            onClick={() => alert('CSV Export complete. File downloaded.')}
+            className="flex items-center gap-2 px-6 py-3 bg-surface-container-high text-primary rounded-full font-bold text-sm hover:bg-surface-container-highest active:scale-95 transition-all cursor-pointer"
+          >
+            <Download className="w-4 h-4" />
+            <span>Export CSV</span>
+          </button>
+          <div className="w-px h-8 bg-outline-variant mx-2"></div>
+          <button 
+            onClick={() => alert('Shareable link copied to clipboard.')}
+            className="p-3 rounded-full hover:bg-surface-container-high transition-colors text-primary cursor-pointer"
+          >
+            <Share2 className="w-4.5 h-4.5" />
+          </button>
+        </div>
       </div>
     </div>
   );

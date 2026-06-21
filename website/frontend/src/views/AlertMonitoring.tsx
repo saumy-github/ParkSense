@@ -19,23 +19,23 @@ interface AlertMonitoringProps {
 export default function AlertMonitoring({ customReportCount, showToast }: AlertMonitoringProps) {
   const [alertList, setAlertList] = useState<AlertCard[]>([
     {
-      id: '#8891-A',
+      id: '#DET-1021',
       type: 'critical',
       title: 'Double Parking Carriageway Block',
       desc: 'Vehicle KA-03-MM-1234 detected at Shivajinagar Junction. Computer vision confirms 36.0% effective width reduction on primary transit lane.',
-      time: '02:14m ago',
+      time: '15m ago',
       confidence: '98% OCR VERIFIED',
-      img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD_eTOXNCZpLC7km5ijkeGzTRq0Xn8RSPMiYbDjxo0znZ5TZZxiGpYj4nfSoKuQWrpnlzzEerHMl9kfcA6Z3_qGNR7Ir_81eRJ1kiZSLMzBRmpYWIcUKUrBvzpNfdTW6m5i4qvGwhBNjY4f2eQqMAStbl6c1Yz49YK-3hPwJyi_aMFR7nvkCpfCiGpxnnI1g3YQ30d4TcOtSshHgtNMNFAlO6ntJVl47ml6cS8LJzxTzFNYgbhh2HvcEsci3nCkwcWZ0AodoE6od64N',
+      img: '/infraction_1.png',
       actions: ['Dispatch Patrol', 'Issue Challan']
     },
     {
-      id: '#9102-B',
+      id: '#DET-1019',
       type: 'warning',
       title: 'Bus Lane Obstruction',
       desc: 'Hatchback KA-04-DE-4321 detected parked in dedicated BRTS corridor. Bus traversal delay is estimated at +11.2 minutes.',
-      time: '12:45m ago',
+      time: '45m ago',
       confidence: '85% CONFIDENCE',
-      img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCKUUimumdSNERHVhvVMcZPvCrN60OhNU_FFChuYDfHwoHU-ugH7l9QLKq4nOCFMzOqIMEfLHvJzLYJtW84-L07diQ2P3lRAsinr_TzJnL71m5qh_gbWVyhNvPCWZKBTrvRMAsaf-5R-3RNMqNplIhCddnTtRwJed7Awmuu51ba5iFrHXBpOFAGFUA2FaegJJQYxg9HcIzhQfpPLcLEsky3Y2lR1TLuCvfHar3HSLz5jK-7xT9jLejPT_Y8RnzZqtce13pued7TSphC',
+      img: '/infraction_2.png',
       actions: ['Dispatch Patrol', 'Issue Challan']
     }
   ]);
@@ -58,7 +58,7 @@ export default function AlertMonitoring({ customReportCount, showToast }: AlertM
         desc: 'Citizen submitted photo of Double Parking obstruction at Shivajinagar PS Junction. License plate KA-03-MM-1234.',
         time: 'Just Now',
         confidence: '95% CONFIDENCE',
-        img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD_eTOXNCZpLC7km5ijkeGzTRq0Xn8RSPMiYbDjxo0znZ5TZZxiGpYj4nfSoKuQWrpnlzzEerHMl9kfcA6Z3_qGNR7Ir_81eRJ1kiZSLMzBRmpYWIcUKUrBvzpNfdTW6m5i4qvGwhBNjY4f2eQqMAStbl6c1Yz49YK-3hPwJyi_aMFR7nvkCpfCiGpxnnI1g3YQ30d4TcOtSshHgtNMNFAlO6ntJVl47ml6cS8LJzxTzFNYgbhh2HvcEsci3nCkwcWZ0AodoE6od64N',
+        img: '/infraction_1.png',
         actions: ['Dispatch Patrol', 'Issue Challan']
       };
 

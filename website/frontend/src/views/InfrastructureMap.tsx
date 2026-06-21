@@ -20,11 +20,27 @@ interface InfrastructureMapProps {
   setActiveHotspotId: (id: number | null) => void;
 }
 
+const CITIZEN_HOTSPOTS = [
+  {
+    cluster_id: 6,
+    cluster_name: "Prabhat Corner - Deccan",
+    center_latitude: 12.9716,
+    center_longitude: 77.6412,
+    representative_junction: "Golden Punjab Road Corner",
+    police_station_jurisdiction: "Indiranagar PS",
+    congestion_impact_score: 62.3,
+    total_incident_count: 520,
+    primary_peak_time_string: "12:00 PM",
+    priority_level: "HIGH"
+  }
+];
+
 export default function InfrastructureMap({ hotspots, activeHotspotId, setActiveHotspotId }: InfrastructureMapProps) {
   const [selectedLayer, setSelectedLayer] = useState<'occupancy' | 'sensors'>('occupancy');
+  const [mapMode, setMapMode] = useState<'ai' | 'citizen'>('ai');
   
   // Find current selected hotspot details
-  const activeHotspot = hotspots.find(h => h.cluster_id === activeHotspotId) || hotspots[0];
+  const activeHotspot = (mapMode === 'ai' ? hotspots : CITIZEN_HOTSPOTS).find(h => h.cluster_id === activeHotspotId) || (mapMode === 'ai' ? hotspots[0] : CITIZEN_HOTSPOTS[0]);
 
   useEffect(() => {
     document.documentElement.classList.remove('light');
@@ -33,11 +49,37 @@ export default function InfrastructureMap({ hotspots, activeHotspotId, setActive
   return (
     <div className="h-[calc(100vh-80px)] w-full relative overflow-hidden bg-[#020b14] text-on-surface transition-all duration-300">
       
+      {/* Floating Map Mode Selector (Top Left) */}
+      <div className="absolute top-6 left-6 z-30 flex bg-[#0d2238]/95 p-1 rounded-xl border border-primary/20 shadow-2xl">
+        <button
+          onClick={() => {
+            setMapMode('ai');
+            setActiveHotspotId(null);
+          }}
+          className={`px-4 py-2 rounded-lg text-xs font-bold uppercase transition-all cursor-pointer ${
+            mapMode === 'ai' ? 'bg-primary text-on-primary shadow-[0_0_10px_rgba(0,240,255,0.4)]' : 'text-[#8eb0d4] hover:text-white'
+          }`}
+        >
+          AI Detected Hotspots ({hotspots.length})
+        </button>
+        <button
+          onClick={() => {
+            setMapMode('citizen');
+            setActiveHotspotId(null);
+          }}
+          className={`px-4 py-2 rounded-lg text-xs font-bold uppercase transition-all cursor-pointer ${
+            mapMode === 'citizen' ? 'bg-primary text-on-primary shadow-[0_0_10px_rgba(0,240,255,0.4)]' : 'text-[#8eb0d4] hover:text-white'
+          }`}
+        >
+          Citizen Reported (1)
+        </button>
+      </div>
+
       {/* Full-Bleed Map Canvas */}
       <div className="absolute inset-0 z-0">
         <Suspense fallback={<div className="w-full h-full bg-[#051424] flex items-center justify-center"><div className="w-8 h-8 border-4 border-primary/20 border-t-primary rounded-full animate-spin" /></div>}>
           <MapComponent
-            hotspots={hotspots}
+            hotspots={mapMode === 'ai' ? hotspots : CITIZEN_HOTSPOTS}
             selectedId={activeHotspotId}
             onSelectHotspot={setActiveHotspotId}
           />
@@ -98,15 +140,15 @@ export default function InfrastructureMap({ hotspots, activeHotspotId, setActive
           {/* Status Glow Header */}
           <div className="relative bg-surface-container-high/40 rounded-xl p-4 mb-6 border border-outline-variant/20 overflow-hidden">
             <div className="absolute top-0 left-0 w-1 h-full bg-primary ai-pulse"></div>
-            <div className="flex justify-between items-center relative z-10">
-              <div className="flex flex-col">
-                <span className="text-[9px] font-bold uppercase text-primary/70 tracking-wide">Congestion Impact</span>
-                <span className="text-sm text-on-surface font-extrabold mt-0.5">
+            <div className="flex justify-between items-center relative z-10 gap-2">
+              <div className="flex flex-col min-w-0">
+                <span className="text-[9px] font-bold uppercase text-primary/70 tracking-wide leading-tight truncate">Congestion Impact</span>
+                <span className="text-sm text-on-surface font-extrabold mt-1 leading-tight truncate">
                   {activeHotspot.priority_level} LEVEL
                 </span>
               </div>
-              <div className="text-right">
-                <span className="text-2xl font-black text-primary">
+              <div className="text-right shrink-0">
+                <span className="text-2xl font-black text-primary leading-none block">
                   {activeHotspot.congestion_impact_score}<span className="text-xs font-normal opacity-70"> idx</span>
                 </span>
               </div>

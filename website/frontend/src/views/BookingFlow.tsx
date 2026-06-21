@@ -321,7 +321,7 @@ export default function BookingFlow({ onReportSubmit, showToast }: BookingFlowPr
                       <div className="p-3 bg-primary-container text-on-primary-container rounded-xl space-y-1.5 text-[10px]">
                         <div className="flex justify-between">
                           <span className="opacity-75">Extracted Location</span>
-                          <span className="font-bold text-white truncate max-w-[120px]">{locationAddress}</span>
+                          <span className="font-bold truncate max-w-[120px]">{locationAddress}</span>
                         </div>
                         <div className="flex justify-between">
                           <span className="opacity-75">Space Pressure Index (SPI)</span>
@@ -331,7 +331,7 @@ export default function BookingFlow({ onReportSubmit, showToast }: BookingFlowPr
                           <span className="opacity-75">Effective Width Reduction</span>
                           <span className="text-secondary font-bold">36.0%</span>
                         </div>
-                        <div className="h-px bg-white/10 my-1"></div>
+                        <div className="h-px bg-on-primary-container/10 my-1"></div>
                         <div className="flex justify-between">
                           <span className="opacity-75">Incident Severity Level</span>
                           <span className="bg-error px-1.5 py-0.5 rounded text-[8px] font-bold text-white">CRITICAL</span>

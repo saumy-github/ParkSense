@@ -14,7 +14,7 @@ export default function Sidebar({ onDeployUnit, onLogout }: SidebarProps) {
     { path: '/map', label: 'Live Map View', icon: 'map' },
     { path: '/alerts', label: 'Active Alerts', icon: 'warning' },
     { path: '/analytics', label: 'Traffic Analytics', icon: 'bar_chart' },
-    { path: '/reporting', label: 'Report Infraction', icon: 'campaign' },
+    { path: '/reporting', label: 'Reported Infractions', icon: 'campaign' },
   ];
 
   return (
