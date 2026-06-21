@@ -1,10 +1,10 @@
 {
   "1": {
     "cluster_id": 1,
-    "cluster_name": "Shivajinagar Junction",
+    "cluster_name": "Shivajinagar - Tasker Town Hub",
     "congestion_impact_score": 92.4,
     "total_incident_count": 1420,
-    "representative_junction": "Shivajinagar PS Junction",
+    "representative_junction": "Aruna Chouhan Muduar Road",
     "police_station_jurisdiction": "Shivajinagar PS",
     "average_delay_minutes": 18.5,
     "average_speed_reduction_pct": 64.2,
@@ -17,18 +17,34 @@
     "hourly_congestion": [15, 12, 10, 8, 12, 35, 65, 85, 95, 92, 75, 68, 70, 78, 82, 88, 91, 85, 70, 55, 40, 30, 22, 18],
     "recent_incidents": [
       {
-        "id": "DET-1021",
-        "timestamp": "15m ago",
-        "vehicle_type": "BMW (KA-03-MM-1234)",
+        "id": "INC-8891",
+        "timestamp": "10:15 AM",
+        "vehicle_type": "SUV (KA-03-MM-1234)",
         "violation": "Double Parking",
-        "status": "Awaiting Review",
+        "status": "Ticket Issued",
         "severity": "CRITICAL"
+      },
+      {
+        "id": "INC-8884",
+        "timestamp": "09:45 AM",
+        "vehicle_type": "Sedan (KA-01-AB-5678)",
+        "violation": "Blocking Crosswalk",
+        "status": "Towed",
+        "severity": "HIGH"
+      },
+      {
+        "id": "INC-8872",
+        "timestamp": "09:20 AM",
+        "vehicle_type": "Delivery Van (KA-02-XY-9012)",
+        "violation": "Commercial Loading",
+        "status": "Warning Issued",
+        "severity": "MEDIUM"
       }
     ],
     "recommended_actions": [
       "Deploy tow trucks between 08:30 AM and 11:30 AM.",
-      "Install physical bollards to protect sidewalks.",
-      "Increase patrol frequency during evening peak hour."
+      "Install physical bollards along Aruna Chouhan Muduar Road to protect sidewalks.",
+      "Increase patrol frequency during evening peak hour (05:30 PM - 07:30 PM)."
     ]
   },
   "2": {
@@ -49,136 +65,34 @@
     "hourly_congestion": [8, 5, 4, 6, 15, 28, 48, 70, 85, 68, 55, 50, 52, 58, 62, 68, 75, 82, 65, 45, 30, 20, 15, 10],
     "recent_incidents": [
       {
-        "id": "DET-1019",
-        "timestamp": "45m ago",
-        "vehicle_type": "Tanker (KA-04-DE-4321)",
+        "id": "INC-9102",
+        "timestamp": "11:22 AM",
+        "vehicle_type": "Hatchback (KA-04-DE-4321)",
         "violation": "Bus Lane Obstruction",
-        "status": "Dispatched",
+        "status": "Ticket Issued",
         "severity": "HIGH"
+      },
+      {
+        "id": "INC-9095",
+        "timestamp": "10:50 AM",
+        "vehicle_type": "SUV (KA-05-FG-8765)",
+        "violation": "Double Parking",
+        "status": "Ticket Issued",
+        "severity": "HIGH"
+      },
+      {
+        "id": "INC-9080",
+        "timestamp": "09:55 AM",
+        "vehicle_type": "Two-Wheeler (KA-51-JK-7890)",
+        "violation": "Sidewalk Obstruction",
+        "status": "Warning Issued",
+        "severity": "LOW"
       }
     ],
     "recommended_actions": [
       "Enforce lane discipline near the metro station exit.",
-      "Sync traffic signal timing with transit schedules during peak hours."
-    ]
-  },
-  "3": {
-    "cluster_id": 3,
-    "cluster_name": "Commercial Street Entrance",
-    "congestion_impact_score": 75.8,
-    "total_incident_count": 920,
-    "representative_junction": "Commercial Street Gate",
-    "police_station_jurisdiction": "Commercial Street PS",
-    "average_delay_minutes": 14.5,
-    "average_speed_reduction_pct": 52.0,
-    "primary_violation_type": "Double Parking",
-    "violation_distribution": {
-      "Double Parking": 60,
-      "No Parking Zone": 25,
-      "Sidewalk Parking": 15
-    },
-    "hourly_congestion": [5, 3, 2, 4, 10, 22, 40, 65, 78, 85, 80, 72, 75, 78, 82, 85, 90, 88, 72, 50, 35, 25, 15, 8],
-    "recent_incidents": [
-      {
-        "id": "DET-1015",
-        "timestamp": "2h ago",
-        "vehicle_type": "Hatchback (KA-01-AB-5678)",
-        "violation": "Double Parking",
-        "status": "Challan Issued",
-        "severity": "HIGH"
-      }
-    ],
-    "recommended_actions": [
-      "Strict enforcement of double-parking rules near Commercial Street Gate."
-    ]
-  },
-  "4": {
-    "cluster_id": 4,
-    "cluster_name": "Modi Bridge Area",
-    "congestion_impact_score": 88.0,
-    "total_incident_count": 1102,
-    "representative_junction": "Modi Bridge Flyover Underpass",
-    "police_station_jurisdiction": "Modi Bridge PS",
-    "average_delay_minutes": 17.2,
-    "average_speed_reduction_pct": 58.5,
-    "primary_violation_type": "No Parking Zone",
-    "violation_distribution": {
-      "No Parking Zone": 65,
-      "Double Parking": 20,
-      "Bus Lane Obstruction": 15
-    },
-    "hourly_congestion": [10, 8, 6, 5, 8, 25, 55, 78, 88, 82, 68, 60, 62, 68, 70, 78, 84, 80, 65, 50, 35, 25, 18, 12],
-    "recent_incidents": [
-      {
-        "id": "DET-1008",
-        "timestamp": "3h ago",
-        "vehicle_type": "Trailer (KA-51-JK-7890)",
-        "violation": "No Parking Zone",
-        "status": "Awaiting Review",
-        "severity": "CRITICAL"
-      }
-    ],
-    "recommended_actions": [
-      "Ban heavy vehicle parking along Modi Bridge underpass."
-    ]
-  },
-  "5": {
-    "cluster_id": 5,
-    "cluster_name": "NH-48 Highway Shoulder",
-    "congestion_impact_score": 42.5,
-    "total_incident_count": 310,
-    "representative_junction": "NH-48 Exit 4 Service Road",
-    "police_station_jurisdiction": "Highway Patrol Div 3",
-    "average_delay_minutes": 5.4,
-    "average_speed_reduction_pct": 22.0,
-    "primary_violation_type": "No Parking Zone",
-    "violation_distribution": {
-      "No Parking Zone": 80,
-      "Double Parking": 20
-    },
-    "hourly_congestion": [5, 4, 3, 5, 12, 18, 30, 42, 45, 38, 32, 30, 32, 35, 38, 40, 42, 40, 32, 25, 18, 12, 8, 6],
-    "recent_incidents": [
-      {
-        "id": "DET-1002",
-        "timestamp": "4h ago",
-        "vehicle_type": "Chemical Tanker (KA-02-XY-9876)",
-        "violation": "No Parking Zone",
-        "status": "Dismissed",
-        "severity": "MEDIUM"
-      }
-    ],
-    "recommended_actions": [
-      "Patrol highway shoulders to prevent heavy cargo truck parking."
-    ]
-  },
-  "6": {
-    "cluster_id": 6,
-    "cluster_name": "Prabhat Corner - Deccan",
-    "congestion_impact_score": 62.3,
-    "total_incident_count": 520,
-    "representative_junction": "Golden Punjab Road Corner",
-    "police_station_jurisdiction": "Indiranagar PS",
-    "average_delay_minutes": 9.8,
-    "average_speed_reduction_pct": 36.4,
-    "primary_violation_type": "Double Parking",
-    "violation_distribution": {
-      "Double Parking": 70,
-      "No Parking Zone": 20,
-      "Sidewalk Parking": 10
-    },
-    "hourly_congestion": [3, 2, 1, 2, 8, 15, 28, 45, 58, 62, 55, 48, 50, 52, 55, 58, 60, 58, 45, 30, 20, 15, 10, 5],
-    "recent_incidents": [
-      {
-        "id": "CIT-1025",
-        "timestamp": "Just Now",
-        "vehicle_type": "Mercedes (MH-14-DN-8982)",
-        "violation": "Double Parking",
-        "status": "Pending Review",
-        "severity": "HIGH"
-      }
-    ],
-    "recommended_actions": [
-      "Strict enforcement of double-parking rules in Deccan shopping district."
+      "Sync traffic signal timing with transit schedules during peak hours.",
+      "Introduce designated pick-up/drop-off zone markers for auto-rickshaws."
     ]
   }
 }

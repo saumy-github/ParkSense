@@ -1,10 +1,10 @@
 [
   {
     "cluster_id": 1,
-    "cluster_name": "Shivajinagar Junction",
+    "cluster_name": "Shivajinagar - Tasker Town Hub",
     "center_latitude": 12.982688,
     "center_longitude": 77.607130,
-    "representative_junction": "Shivajinagar PS Junction",
+    "representative_junction": "Aruna Chouhan Muduar Road",
     "police_station_jurisdiction": "Shivajinagar PS",
     "congestion_impact_score": 92.4,
     "total_incident_count": 1420,
@@ -23,58 +23,6 @@
     "total_incident_count": 845,
     "primary_peak_minute_of_day": 585,
     "primary_peak_time_string": "09:45 AM",
-    "priority_level": "HIGH"
-  },
-  {
-    "cluster_id": 3,
-    "cluster_name": "Commercial Street Entrance",
-    "center_latitude": 12.9802,
-    "center_longitude": 77.6095,
-    "representative_junction": "Commercial Street Gate",
-    "police_station_jurisdiction": "Commercial Street PS",
-    "congestion_impact_score": 75.8,
-    "total_incident_count": 920,
-    "primary_peak_minute_of_day": 660,
-    "primary_peak_time_string": "11:00 AM",
-    "priority_level": "HIGH"
-  },
-  {
-    "cluster_id": 4,
-    "cluster_name": "Modi Bridge Area",
-    "center_latitude": 12.9928,
-    "center_longitude": 77.5955,
-    "representative_junction": "Modi Bridge Flyover Underpass",
-    "police_station_jurisdiction": "Modi Bridge PS",
-    "congestion_impact_score": 88.0,
-    "total_incident_count": 1102,
-    "primary_peak_minute_of_day": 540,
-    "primary_peak_time_string": "09:00 AM",
-    "priority_level": "CRITICAL"
-  },
-  {
-    "cluster_id": 5,
-    "cluster_name": "NH-48 Highway Shoulder",
-    "center_latitude": 12.9254,
-    "center_longitude": 77.5123,
-    "representative_junction": "NH-48 Exit 4 Service Road",
-    "police_station_jurisdiction": "Highway Patrol Div 3",
-    "congestion_impact_score": 42.5,
-    "total_incident_count": 310,
-    "primary_peak_minute_of_day": 480,
-    "primary_peak_time_string": "08:00 AM",
-    "priority_level": "MEDIUM"
-  },
-  {
-    "cluster_id": 6,
-    "cluster_name": "Prabhat Corner - Deccan",
-    "center_latitude": 12.9716,
-    "center_longitude": 77.6412,
-    "representative_junction": "Golden Punjab Road Corner",
-    "police_station_jurisdiction": "Indiranagar PS",
-    "congestion_impact_score": 62.3,
-    "total_incident_count": 520,
-    "primary_peak_minute_of_day": 720,
-    "primary_peak_time_string": "12:00 PM",
     "priority_level": "HIGH"
   }
 ]

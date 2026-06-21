@@ -1,4 +1,4 @@
-import React, { useEffect, Suspense } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 const MapComponent = React.lazy(() => import('../components/MapComponent'));
 
 interface HotspotSummary {
@@ -96,7 +96,23 @@ const EVENTS: EventItem[] = [
   }
 ];
 
+const CITIZEN_HOTSPOTS = [
+  {
+    cluster_id: 6,
+    cluster_name: "Prabhat Corner - Deccan",
+    center_latitude: 12.9716,
+    center_longitude: 77.6412,
+    representative_junction: "Golden Punjab Road Corner",
+    police_station_jurisdiction: "Indiranagar PS",
+    congestion_impact_score: 62.3,
+    total_incident_count: 520,
+    primary_peak_time_string: "12:00 PM",
+    priority_level: "HIGH"
+  }
+];
+
 export default function ControlCenter({ hotspots, activeHotspotId, setActiveHotspotId, customReportCount, showToast }: ControlCenterProps) {
+  const [mapMode, setMapMode] = useState<'ai' | 'citizen'>('ai');
 
   useEffect(() => {
     // Set theme to dark for Operator Dashboard
@@ -120,6 +136,11 @@ export default function ControlCenter({ hotspots, activeHotspotId, setActiveHots
     }
   }
 
+  const activeEvents = dynamicEvents.filter(event => {
+    const isAi = event.id.startsWith('DET-');
+    return mapMode === 'ai' ? isAi : !isAi;
+  });
+
   const handleEventClick = (clusterId: number, title: string) => {
     setActiveHotspotId(clusterId);
     showToast?.(`Focused live map on ${title}`, 'info');
@@ -129,18 +150,18 @@ export default function ControlCenter({ hotspots, activeHotspotId, setActiveHots
     <div className="mesh-gradient min-h-full bg-[#051424] text-[#d4e4fa] px-6 py-8 max-w-7xl mx-auto w-full transition-all duration-300">
       
       {/* Header Stats Row */}
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+      <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
         
         {/* Active Violations */}
         <div className="glass-panel rounded-2xl p-6 border border-outline-variant/30 bg-[#0d2238]/60 transition-all duration-300 hover:border-primary/40">
           <p className="text-[10px] uppercase font-bold tracking-widest text-[#8eb0d4] mb-2">Active Violations</p>
           <div className="flex items-end gap-3">
-            <h2 className="text-4xl font-bold text-primary">{18 + customReportCount}</h2>
+            <h2 className="text-4xl font-bold text-primary">{activeEvents.length}</h2>
             <span className="text-[#8eb0d4]/60 text-xs mb-1">Ongoing Hotspots</span>
           </div>
           <div className="w-full bg-[#051424] h-1.5 rounded-full mt-4 overflow-hidden">
             <div 
-              style={{ width: `${Math.min(100, 40 + (customReportCount * 8))}%` }}
+              style={{ width: `${Math.min(100, 40 + (activeEvents.length * 8))}%` }}
               className="bg-primary h-full shadow-[0_0_8px_#00f0ff] transition-all duration-500"
             ></div>
           </div>
@@ -171,30 +192,44 @@ export default function ControlCenter({ hotspots, activeHotspotId, setActiveHots
             <span className="font-semibold">+64% Speed Reduction</span>
           </p>
         </div>
-
-        {/* Est. Delay Penalty Cost */}
-        <div className="glass-panel rounded-2xl p-6 border border-outline-variant/30 bg-[#0d2238]/60 transition-all duration-300 hover:border-primary/40">
-          <p className="text-[10px] uppercase font-bold tracking-widest text-[#8eb0d4] mb-2">Est. Congestion Loss</p>
-          <h2 className="text-4xl font-bold text-primary">${(14.2 + (customReportCount * 0.4)).toFixed(1)}k/hr</h2>
-          <div className="flex gap-1 mt-4 items-end h-8">
-            <div className="flex-1 bg-primary/25 rounded-t h-[40%]"></div>
-            <div className="flex-1 bg-primary/25 rounded-t h-[60%]"></div>
-            <div className="flex-1 bg-primary/25 rounded-t h-[80%]"></div>
-            <div className="flex-1 bg-primary/40 rounded-t h-[55%]"></div>
-            <div className="flex-1 bg-primary/60 rounded-t h-[90%]"></div>
-            <div className="flex-1 bg-primary rounded-t h-full shadow-[0_0_10px_#00f0ff]"></div>
-          </div>
-        </div>
       </section>
 
       {/* Bento Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Map panel */}
         <div className="lg:col-span-8 glass-panel rounded-3xl overflow-hidden border border-outline-variant/30 bg-[#0d2238]/60 relative h-125 flex flex-col">
-          <div className="p-4 bg-[#0d2238] border-b border-outline-variant/30 flex justify-between items-center z-10">
-            <div>
-              <p className="text-xs uppercase font-bold tracking-wider text-primary">Live Enforcement Heatmap</p>
-              <p className="text-xs text-[#8eb0d4] mt-0.5">Bengaluru Active Traffic Nodes</p>
+          <div className="p-4 bg-[#0d2238] border-b border-outline-variant/30 flex flex-wrap justify-between items-center gap-4 z-10">
+            <div className="flex items-center gap-4 flex-wrap">
+              <div>
+                <p className="text-xs uppercase font-bold tracking-wider text-primary">Live Enforcement Heatmap</p>
+                <p className="text-xs text-[#8eb0d4] mt-0.5">Bengaluru Active Traffic Nodes</p>
+              </div>
+
+              {/* Map Tabs */}
+              <div className="flex bg-[#051424] rounded-lg p-0.5 border border-outline-variant/30">
+                <button
+                  onClick={() => {
+                    setMapMode('ai');
+                    setActiveHotspotId(null);
+                  }}
+                  className={`px-3 py-1 rounded text-[10px] font-bold uppercase transition-all cursor-pointer ${
+                    mapMode === 'ai' ? 'bg-primary text-on-primary' : 'text-[#8eb0d4] hover:text-white'
+                  }`}
+                >
+                  AI Detected ({hotspots.length})
+                </button>
+                <button
+                  onClick={() => {
+                    setMapMode('citizen');
+                    setActiveHotspotId(null);
+                  }}
+                  className={`px-3 py-1 rounded text-[10px] font-bold uppercase transition-all cursor-pointer ${
+                    mapMode === 'citizen' ? 'bg-primary text-on-primary' : 'text-[#8eb0d4] hover:text-white'
+                  }`}
+                >
+                  Citizen Reported ({customReportCount > 0 ? 1 + customReportCount : 1})
+                </button>
+              </div>
             </div>
             {activeHotspotId && (
               <button 
@@ -208,7 +243,7 @@ export default function ControlCenter({ hotspots, activeHotspotId, setActiveHots
           <div className="grow">
             <Suspense fallback={<div className="w-full h-full bg-[#051424] flex items-center justify-center"><div className="w-8 h-8 border-4 border-primary/20 border-t-primary rounded-full animate-spin" /></div>}>
               <MapComponent
-                hotspots={hotspots}
+                hotspots={mapMode === 'ai' ? hotspots : CITIZEN_HOTSPOTS}
                 selectedId={activeHotspotId}
                 onSelectHotspot={setActiveHotspotId}
               />
@@ -224,7 +259,7 @@ export default function ControlCenter({ hotspots, activeHotspotId, setActiveHots
           </div>
           
           <div className="grow space-y-4 overflow-y-auto pr-1 hide-scrollbar">
-            {dynamicEvents.map((event) => {
+            {activeEvents.map((event) => {
               const isSelected = activeHotspotId === event.clusterId;
               return (
                 <div 

@@ -108,6 +108,7 @@ export default function ReportedViolations({ customReportCount = 0, showToast }:
   ]);
 
   const [selectedViolation, setSelectedViolation] = useState<CitizenViolation | null>(null);
+  const [activeTab, setActiveTab] = useState<'ai' | 'citizen'>('ai');
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [statusFilter, setStatusFilter] = useState<string>('All');
   const [typeFilter, setTypeFilter] = useState<string>('All');
@@ -165,6 +166,9 @@ export default function ReportedViolations({ customReportCount = 0, showToast }:
 
   // Filtered list
   const filteredViolations = violations.filter(v => {
+    const isAiRecord = v.id.startsWith('DET-');
+    const matchesTab = activeTab === 'ai' ? isAiRecord : !isAiRecord;
+
     const matchesSearch =
       v.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
       v.vehicleNo.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -174,7 +178,7 @@ export default function ReportedViolations({ customReportCount = 0, showToast }:
     const matchesStatus = statusFilter === 'All' || v.status === statusFilter;
     const matchesType = typeFilter === 'All' || v.violationType === typeFilter;
 
-    return matchesSearch && matchesStatus && matchesType;
+    return matchesTab && matchesSearch && matchesStatus && matchesType;
   });
 
   return (
@@ -209,6 +213,32 @@ export default function ReportedViolations({ customReportCount = 0, showToast }:
           </div>
         </div>
       </section>
+
+      {/* Tab Selectors */}
+      <div className="flex gap-4 border-b border-outline-variant/20 pb-1">
+        <button
+          onClick={() => {
+            setActiveTab('ai');
+            setSelectedViolation(null);
+          }}
+          className={`pb-2 px-1 text-sm font-bold border-b-2 transition-all cursor-pointer ${
+            activeTab === 'ai' ? 'border-primary text-primary' : 'border-transparent text-[#8eb0d4] hover:text-white'
+          }`}
+        >
+          AI Model Detected Detections ({violations.filter(v => v.id.startsWith('DET-')).length})
+        </button>
+        <button
+          onClick={() => {
+            setActiveTab('citizen');
+            setSelectedViolation(null);
+          }}
+          className={`pb-2 px-1 text-sm font-bold border-b-2 transition-all cursor-pointer ${
+            activeTab === 'citizen' ? 'border-primary text-primary' : 'border-transparent text-[#8eb0d4] hover:text-white'
+          }`}
+        >
+          Citizen Reported Infractions ({violations.filter(v => !v.id.startsWith('DET-')).length})
+        </button>
+      </div>
 
       {/* Filter and Search Panel */}
       <section className="glass-panel p-4 rounded-2xl border border-outline-variant/30 bg-[#0d2238]/30 flex flex-col md:flex-row gap-4 items-center justify-between">
