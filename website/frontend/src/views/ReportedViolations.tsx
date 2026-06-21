@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Search, Filter, ShieldCheck, MapPin, Eye, AlertTriangle, CheckCircle, RefreshCw, X, Loader } from 'lucide-react';
+import { Search, Filter, MapPin, Eye, AlertTriangle, CheckCircle, X, Loader } from 'lucide-react';
 
 interface CitizenViolation {
   id: string;

@@ -239,7 +239,7 @@ function App() {
                 )}
                 <main className="grow w-full min-h-[calc(100vh-80px)] relative">
                   <Routes>
-                    <Route path="/" element={<LandingPage isLoggedIn={isLoggedIn} userRole={userRole} />} />
+                    <Route path="/" element={<LandingPage isLoggedIn={isLoggedIn} userRole={userRole} hotspots={hotspots} />} />
                     <Route
                       path="/dashboard"
                       element={
