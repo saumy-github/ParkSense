@@ -62,14 +62,12 @@ export default function BookingFlow({ onReportSubmit, showToast }: BookingFlowPr
 
   const handleScanPhoto = () => {
     setLoadingAI(true);
-    // Set a mock evidence photo of vehicle violation
+    // Set evidence photo of vehicle violation
     setEvidencePhoto('https://lh3.googleusercontent.com/aida-public/AB6AXuD_eTOXNCZpLC7km5ijkeGzTRq0Xn8RSPMiYbDjxo0znZ5TZZxiGpYj4nfSoKuQWrpnlzzEerHMl9kfcA6Z3_qGNR7Ir_81eRJ1kiZSLMzBRmpYWIcUKUrBvzpNfdTW6m5i4qvGwhBNjY4f2eQqMAStbl6c1Yz49YK-3hPwJyi_aMFR7nvkCpfCiGpxnnI1g3YQ30d4TcOtSshHgtNMNFAlO6ntJVl47ml6cS8LJzxTzFNYgbhh2HvcEsci3nCkwcWZ0AodoE6od64N');
     
-    setTimeout(() => {
-      setLoadingAI(false);
-      showToast?.('AI Verification complete. License plate recognized.', 'success');
-      setStep(3);
-    }, 1500);
+    setLoadingAI(false);
+    showToast?.('AI Verification complete. License plate recognized.', 'success');
+    setStep(3);
   };
 
   const handleSubmitReport = () => {
@@ -91,21 +89,21 @@ export default function BookingFlow({ onReportSubmit, showToast }: BookingFlowPr
       
       {/* Frame Container */}
       <div className="w-full max-w-5xl bg-white rounded-3xl border border-outline-variant overflow-hidden flex flex-col shadow-2xl min-h-[550px]">
-        {/* Browser Top bar mock */}
+        {/* Browser Top bar */}
         <div className="bg-surface-container-highest px-6 py-3 flex items-center gap-3 border-b border-outline-variant/60">
           <div className="flex gap-1.5 shrink-0">
             <div className="w-3 h-3 rounded-full bg-error/40"></div>
             <div className="w-3 h-3 rounded-full bg-secondary-container/40"></div>
             <div className="w-3 h-3 rounded-full bg-outline-variant"></div>
           </div>
-          <div className="bg-white rounded-md px-4 py-1 text-[11px] text-on-surface-variant flex-grow max-w-md mx-auto border border-outline-variant/60 flex items-center justify-center gap-1 font-mono">
+          <div className="bg-white rounded-md px-4 py-1 text-[11px] text-on-surface-variant grow max-w-md mx-auto border border-outline-variant/60 flex items-center justify-center gap-1 font-mono">
             <span className="material-symbols-outlined text-[12px]">lock</span>
-            citizen.astram-parkinsight.gov.in/report
+            citizen.parksense.gov.in/report
           </div>
         </div>
 
         {/* Content Area: Split View */}
-        <div className="flex flex-col lg:flex-row flex-grow overflow-hidden">
+        <div className="flex flex-col lg:flex-row grow overflow-hidden">
           {/* Left Side: Citizen Instructions */}
           <div className="flex flex-col justify-center p-8 lg:p-12 lg:w-1/2 space-y-6 bg-surface-container-lowest">
             <span className="inline-flex px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-bold text-[10px] uppercase tracking-wider w-fit">
@@ -134,10 +132,10 @@ export default function BookingFlow({ onReportSubmit, showToast }: BookingFlowPr
             </div>
           </div>
 
-          {/* Right Side: Mobile Mockup */}
+          {/* Right Side: Mobile Interface */}
           <div className="w-full lg:w-1/2 flex items-center justify-center bg-surface-container-low p-6 lg:border-l border-outline-variant/60">
-            {/* Mobile Phone Mock */}
-            <div className="w-[305px] h-[525px] bg-white rounded-[2.5rem] border-[8px] border-primary relative overflow-hidden shadow-2xl flex flex-col shrink-0">
+            {/* Mobile Phone */}
+            <div className="w-[305px] h-[525px] bg-white rounded-[2.5rem] border-8 border-primary relative overflow-hidden shadow-2xl flex flex-col shrink-0">
               {/* Mobile Top bar */}
               <div className="h-8 w-full flex justify-between items-center px-6 pt-3 shrink-0">
                 <span className="text-[9px] font-bold">9:41 AM</span>
@@ -149,7 +147,7 @@ export default function BookingFlow({ onReportSubmit, showToast }: BookingFlowPr
               </div>
 
               {/* Mobile screen view scroll container */}
-              <div className="flex-grow flex flex-col p-5 overflow-hidden relative justify-between">
+              <div className="grow flex flex-col p-5 overflow-hidden relative justify-between">
                 
                 {/* Step 1: Info Form */}
                 {step === 1 && (
@@ -311,7 +309,7 @@ export default function BookingFlow({ onReportSubmit, showToast }: BookingFlowPr
                       {/* Image Preview & Extracted OCR */}
                       <div className="rounded-xl overflow-hidden border border-outline-variant/60 shadow-sm relative h-28 bg-black">
                         {evidencePhoto && <img src={evidencePhoto} alt="Evidence" className="w-full h-full object-cover opacity-70" />}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-2.5">
+                        <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent flex flex-col justify-end p-2.5">
                           <span className="text-[8px] text-green-400 font-bold tracking-widest">PLATE OCR SCANNER STATUS: SUCCESS</span>
                           <h4 className="text-sm font-mono font-bold text-white tracking-wider">{vehicleNo}</h4>
                         </div>

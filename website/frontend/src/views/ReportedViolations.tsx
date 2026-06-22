@@ -188,7 +188,7 @@ export default function ReportedViolations({ customReportCount = 0, showToast }:
       <section className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
           <h2 className="text-3xl font-bold text-primary tracking-tight">AI Infraction Detection Portal</h2>
-          <p className="text-[#8eb0d4] text-sm mt-1">Review and process parking violations automatically detected by ASTraM AI models.</p>
+          <p className="text-[#8eb0d4] text-sm mt-1">Review and process parking violations automatically detected by ParkSense AI models.</p>
         </div>
         
         {/* Quick Stats */}

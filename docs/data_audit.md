@@ -1,6 +1,6 @@
-# ASTraM ParkInsight: Data Audit & Integration Report
+# ParkSense: Data Audit & Integration Report
 
-This document reviews the data displayed across all views and components in the **ASTraM ParkInsight** application, audits whether the telemetry is real or mocked, and outlines RTO/sensor integrations required for production.
+This document reviews the data displayed across all views and components in the **ParkSense** application, audits whether the telemetry is real or mocked, and outlines RTO/sensor integrations required for production.
 
 ---
 
