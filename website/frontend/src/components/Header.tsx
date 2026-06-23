@@ -82,6 +82,16 @@ export default function Header({ onSearch, isLoggedIn, userRole, onLogout }: Hea
               >
                 {userRole === 'operator' ? 'OP' : 'CR'}
               </div>
+
+              {userRole === 'citizen' && (
+                <button
+                  onClick={handleLogoutClick}
+                  className="hidden lg:flex items-center gap-1.5 px-4 py-2 rounded-xl border border-red-500/25 bg-red-500/10 hover:bg-red-500/20 text-red-400 hover:text-red-300 font-bold text-xs transition-all cursor-pointer"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                  Logout
+                </button>
+              )}
             </div>
           )}
 
