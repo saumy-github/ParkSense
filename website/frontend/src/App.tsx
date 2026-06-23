@@ -82,7 +82,8 @@ function App() {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch('/api/hotspots');
+      const API_BASE = import.meta.env.VITE_API_URL || '';
+      const response = await fetch(`${API_BASE}/api/hotspots`);
       if (!response.ok) throw new Error('Failed to fetch hotspots data from server.');
       const data = await response.json();
       const mappedData = data.map((item: any) => ({
@@ -103,7 +104,8 @@ function App() {
 
   useEffect(() => {
     fetchHotspots();
-    fetch('/api/hotspots/details')
+    const API_BASE = import.meta.env.VITE_API_URL || '';
+    fetch(`${API_BASE}/api/hotspots/details`)
       .then(r => r.json())
       .then(data => setHotspotDetails(data))
       .catch(err => console.error('Failed to fetch hotspot details', err));

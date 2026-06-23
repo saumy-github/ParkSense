@@ -25,7 +25,8 @@ export default function Login({ onLogin, showToast }: LoginProps) {
       }
       setLoading(true);
       try {
-        await fetch('/api/login', { 
+        const API_BASE = import.meta.env.VITE_API_URL || '';
+        await fetch(`${API_BASE}/api/login`, { 
           method: 'POST', 
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username, password }) 
@@ -38,7 +39,8 @@ export default function Login({ onLogin, showToast }: LoginProps) {
     } else {
       setLoading(true);
       try {
-        await fetch('/api/login', {
+        const API_BASE = import.meta.env.VITE_API_URL || '';
+        await fetch(`${API_BASE}/api/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ role: 'citizen' })
