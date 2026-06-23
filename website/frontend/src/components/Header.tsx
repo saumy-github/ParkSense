@@ -38,7 +38,7 @@ export default function Header({ onSearch, isLoggedIn, userRole, onLogout }: Hea
             className="font-bold text-lg md:text-xl text-primary tracking-tight hover:text-secondary transition-colors flex items-center gap-2 shrink-0 cursor-pointer"
           >
             <span className="material-symbols-outlined text-primary text-2xl">traffic</span>
-            <span>ASTraM ParkInsight</span>
+            <span>ParkSense</span>
           </button>
 
           {isOperator && (pathname === '/dashboard' || pathname === '/map') && (

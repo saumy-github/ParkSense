@@ -57,8 +57,8 @@ SUBMISSION FORMAT
 TIMELINE
 --------
   Phase 1 (Online ML Challenge):    May 26 – June 7, 2026
-  Phase 2 (Prototype Development):  June 8 – June 21, 2026  ← WE ARE HERE
-    Round 2 window:                 June 15 – June 21, 2026 (10 PM – 11:59 PM UTC)
+  Phase 2 (Prototype Development):  June 8 – June 23, 2026  ← WE ARE HERE
+    Round 2 window:                 June 15 – June 23, 2026 (extended deadline)
   Phase 3 (Onsite Finale):          July 3, 2026 — Flipkart HQ, Bengaluru
 
 ---

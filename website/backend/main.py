@@ -4,7 +4,7 @@ from src.routes import hotspots, visual
 
 app = FastAPI(
     title="Parking-Induced Congestion API",
-    description="ASTraM ParkInsight backend -- Flipkart Gridlock Hackathon 2.0",
+    description="ParkSense backend -- Flipkart Gridlock Hackathon 2.0",
     version="2.0.0"
 )
 

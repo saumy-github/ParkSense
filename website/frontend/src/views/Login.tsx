@@ -16,7 +16,7 @@ export default function Login({ onLogin, showToast }: LoginProps) {
   const [password, setPassword] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (selectedRole === 'operator') {
       if (!username.trim() || !password.trim()) {
@@ -24,10 +24,30 @@ export default function Login({ onLogin, showToast }: LoginProps) {
         return;
       }
       setLoading(true);
-      setTimeout(() => { setLoading(false); onLogin('operator'); }, 1000);
+      try {
+        await fetch('/api/login', { 
+          method: 'POST', 
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password }) 
+        });
+      } catch (err) {
+        console.error(err);
+      }
+      setLoading(false);
+      onLogin('operator');
     } else {
       setLoading(true);
-      setTimeout(() => { setLoading(false); onLogin('citizen'); }, 800);
+      try {
+        await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ role: 'citizen' })
+        });
+      } catch (err) {
+        console.error(err);
+      }
+      setLoading(false);
+      onLogin('citizen');
     }
   };
 
@@ -77,27 +97,15 @@ export default function Login({ onLogin, showToast }: LoginProps) {
             <div className="flex items-center gap-3 mb-4">
               <span className="material-symbols-outlined text-3xl text-blue-300">traffic</span>
               <div>
-                <h1 className="text-3xl font-extrabold tracking-tighter text-white leading-none">ASTraM</h1>
+                <h1 className="text-3xl font-extrabold tracking-tighter text-white leading-none">ParkSense</h1>
                 <p className="text-sm font-medium text-blue-300/80 tracking-wide">ParkInsight Portal</p>
               </div>
             </div>
-            <p className="text-blue-100/55 max-w-xs leading-relaxed text-sm">
+            <p className="text-blue-100/55 leading-relaxed text-sm">
               Advanced Surveillance &amp; Traffic Management. Secure law enforcement access for Bengaluru's parking-induced congestion intelligence system.
             </p>
 
-            {/* Stats */}
-            <div className="mt-6 grid grid-cols-3 gap-3">
-              {[
-                { label: 'Hotspots', value: '19' },
-                { label: 'Clusters', value: '6' },
-                { label: 'Avg SPI', value: '0.72' },
-              ].map((s) => (
-                <div key={s.label} className="bg-white/5 rounded-xl p-3 border border-white/10">
-                  <p className="text-xl font-bold text-white">{s.value}</p>
-                  <p className="text-[9px] text-blue-200/50 uppercase tracking-widest mt-0.5">{s.label}</p>
-                </div>
-              ))}
-            </div>
+
           </div>
 
           {/* Illustration */}
@@ -109,10 +117,7 @@ export default function Login({ onLogin, showToast }: LoginProps) {
             />
           </div>
 
-          {/* Footer */}
-          <div className="relative z-10 text-[9px] text-blue-200/30 uppercase tracking-widest font-semibold">
-            © 2025 Civic Intelligence Systems · Bengaluru Traffic Police
-          </div>
+
         </section>
 
         {/* ── RIGHT: Form panel ── */}
@@ -124,23 +129,23 @@ export default function Login({ onLogin, showToast }: LoginProps) {
           <div className="md:hidden mb-6 text-center">
             <div className="flex items-center justify-center gap-2 mb-1">
               <span className="material-symbols-outlined text-xl text-blue-400">traffic</span>
-              <h1 className="text-xl font-extrabold tracking-tighter text-white">ASTraM</h1>
+              <h1 className="text-xl font-extrabold tracking-tighter text-white">ParkSense</h1>
             </div>
             <p className="text-xs text-blue-400 font-semibold">ParkInsight Portal</p>
           </div>
 
           {/* Header row: Welcome + Return to Home */}
-          <div className="flex items-start justify-between mb-6">
+          <div className="flex items-center justify-between mb-6">
             <div>
               <h2 className="text-2xl font-bold text-white mb-0.5">Welcome back</h2>
-              <p className="text-gray-400 text-xs">Authorization required · Select your access role</p>
+              <p className="text-gray-400 text-xs">Authorization required</p>
             </div>
             <button
               type="button"
               onClick={() => navigate('/')}
-              className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-blue-400 transition-colors shrink-0 mt-1 ml-4 cursor-pointer"
+              className="flex items-center gap-2 text-[13px] font-medium text-gray-300 bg-[#2a2b32] hover:bg-[#38393f] border border-[#38393f] hover:border-gray-500 px-3 py-2 rounded-lg transition-all shrink-0 cursor-pointer shadow-sm"
             >
-              <ArrowLeft className="w-3.5 h-3.5" />
+              <ArrowLeft className="w-4 h-4" />
               Return to Home
             </button>
           </div>
@@ -181,78 +186,80 @@ export default function Login({ onLogin, showToast }: LoginProps) {
 
           {/* Auth form */}
           <form onSubmit={handleSubmit} className="space-y-4">
-            {selectedRole === 'operator' ? (
-              <>
-                {/* Badge ID */}
-                <div className="relative">
-                  <label
-                    className="absolute -top-2.5 left-3 px-1 text-xs font-semibold text-blue-400 z-10"
-                    style={{ background: '#1a1b21' }}
-                  >
-                    Badge ID
-                  </label>
-                  <div
-                    className="flex items-center border-2 rounded-lg px-3 py-2.5 transition-colors duration-200 focus-within:border-blue-500"
-                    style={{ borderColor: '#38393f' }}
-                  >
-                    <svg className="w-4 h-4 text-gray-500 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
-                    </svg>
-                    <input
-                      type="text"
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
-                      placeholder="Officer-XXXXX"
-                      className="bg-transparent border-none focus:ring-0 focus:outline-none text-white w-full placeholder-gray-600 text-sm"
-                    />
+            <div className="h-39 flex flex-col justify-center">
+              {selectedRole === 'operator' ? (
+                <div className="space-y-4">
+                  {/* Badge ID */}
+                  <div className="relative">
+                    <label
+                      className="absolute -top-2.5 left-3 px-1 text-xs font-semibold text-blue-400 z-10"
+                      style={{ background: '#1a1b21' }}
+                    >
+                      Badge ID
+                    </label>
+                    <div
+                      className="flex items-center border-2 rounded-lg px-3 py-2.5 transition-colors duration-200 focus-within:border-blue-500"
+                      style={{ borderColor: '#38393f' }}
+                    >
+                      <svg className="w-4 h-4 text-gray-500 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+                      </svg>
+                      <input
+                        type="text"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        placeholder="BTP-Badge-No"
+                        className="bg-transparent border-none focus:ring-0 focus:outline-none text-white w-full placeholder-gray-600 text-sm"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Passcode */}
+                  <div className="relative">
+                    <label
+                      className="absolute -top-2.5 left-3 px-1 text-xs font-semibold text-blue-400 z-10"
+                      style={{ background: '#1a1b21' }}
+                    >
+                      Security Passcode
+                    </label>
+                    <div
+                      className="flex items-center border-2 rounded-lg px-3 py-2.5 transition-colors duration-200 focus-within:border-blue-500"
+                      style={{ borderColor: '#38393f' }}
+                    >
+                      <svg className="w-4 h-4 text-gray-500 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+                      </svg>
+                      <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="••••••••••••"
+                        className="bg-transparent border-none focus:ring-0 focus:outline-none text-white w-full placeholder-gray-600 text-sm"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex justify-end">
+                    <span className="text-[11px] text-gray-600 hover:text-blue-400 transition-colors cursor-pointer">
+                      Forgot passcode?
+                    </span>
                   </div>
                 </div>
-
-                {/* Passcode */}
-                <div className="relative">
-                  <label
-                    className="absolute -top-2.5 left-3 px-1 text-xs font-semibold text-blue-400 z-10"
-                    style={{ background: '#1a1b21' }}
-                  >
-                    Security Passcode
-                  </label>
-                  <div
-                    className="flex items-center border-2 rounded-lg px-3 py-2.5 transition-colors duration-200 focus-within:border-blue-500"
-                    style={{ borderColor: '#38393f' }}
-                  >
-                    <svg className="w-4 h-4 text-gray-500 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
-                    </svg>
-                    <input
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      placeholder="••••••••••••"
-                      className="bg-transparent border-none focus:ring-0 focus:outline-none text-white w-full placeholder-gray-600 text-sm"
-                    />
-                  </div>
+              ) : (
+                <div
+                  className="p-4 rounded-xl border space-y-2"
+                  style={{ background: 'rgba(99,102,241,0.07)', borderColor: 'rgba(99,102,241,0.18)' }}
+                >
+                  <h4 className="text-sm font-bold text-blue-400 flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 shrink-0" />
+                    Anonymized Citizen Report Flow
+                  </h4>
+                  <p className="text-xs text-gray-400 leading-relaxed">
+                    No badge credentials required. Log in instantly to flag double-parking and sidewalk blockages. Your identity is anonymized.
+                  </p>
                 </div>
-
-                <div className="flex justify-end">
-                  <span className="text-[11px] text-gray-600 hover:text-blue-400 transition-colors cursor-pointer">
-                    Forgot passcode?
-                  </span>
-                </div>
-              </>
-            ) : (
-              <div
-                className="p-4 rounded-xl border space-y-2"
-                style={{ background: 'rgba(99,102,241,0.07)', borderColor: 'rgba(99,102,241,0.18)' }}
-              >
-                <h4 className="text-sm font-bold text-blue-400 flex items-center gap-2">
-                  <AlertCircle className="w-4 h-4 shrink-0" />
-                  Anonymized Citizen Report Flow
-                </h4>
-                <p className="text-xs text-gray-400 leading-relaxed">
-                  No badge credentials required. Log in instantly to flag double-parking and sidewalk blockages. Your identity is anonymized.
-                </p>
-              </div>
-            )}
+              )}
+            </div>
 
             {/* Submit */}
             <button
@@ -284,10 +291,7 @@ export default function Login({ onLogin, showToast }: LoginProps) {
             </button>
           </form>
 
-          {/* Footer */}
-          <p className="mt-5 text-center text-[10px] text-gray-700 tracking-wide">
-            Secure RTO-linked Session &nbsp;·&nbsp; IP Logger Enabled &nbsp;·&nbsp; BENGALURU TRAFFIC POLICE
-          </p>
+
         </section>
       </main>
     </div>

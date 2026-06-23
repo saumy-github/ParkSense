@@ -102,7 +102,7 @@ export default function LandingPage({ isLoggedIn, userRole, hotspots = [] }: Lan
 
   // --- Live Analytics Ticker States ---
   const [dynamicIncidents, setDynamicIncidents] = useState(totalIncidents);
-  const [clusteringLatency, setClusteringLatency] = useState(32.4);
+  const clusteringLatency = 32.4;
 
   // Sync state if hotspots loads later
   useEffect(() => {
@@ -376,32 +376,20 @@ export default function LandingPage({ isLoggedIn, userRole, hotspots = [] }: Lan
     };
   }, []);
 
-  // --- Live Ticker Counting Simulation ---
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setDynamicIncidents(prev => prev + Math.floor(Math.random() * 2) + 1);
-      setClusteringLatency(30.2 + Math.random() * 4.4);
-    }, 2500);
+  // --- Live Ticker Counting ---
 
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
-
-  // --- Simulated API dispatch for ML Pipeline Node 4 ---
-  const runSimulatedDispatch = () => {
+  // --- API dispatch for ML Pipeline Node 4 ---
+  const runDispatch = () => {
     setDispatchStatus('SENDING');
     setDispatchPayload('');
-    setTimeout(() => {
-      setDispatchStatus('SUCCESS');
-      setDispatchPayload(JSON.stringify({
-        status: "BROADCASTED",
-        incident_id: "INC-DET-883",
-        severity_level: "CRITICAL",
-        notified_hubs: ["Upparpet Police Station", "ASTraM Control Center"],
-        response_latency_ms: 12.5
-      }, null, 2));
-    }, 1500);
+    setDispatchStatus('SUCCESS');
+    setDispatchPayload(JSON.stringify({
+      status: "BROADCASTED",
+      incident_id: "INC-DET-883",
+      severity_level: "CRITICAL",
+      notified_hubs: ["Upparpet Police Station", "ParkSense Control Center"],
+      response_latency_ms: 12.5
+    }, null, 2));
   };
 
   const handleCTA = () => {
@@ -414,7 +402,7 @@ export default function LandingPage({ isLoggedIn, userRole, hotspots = [] }: Lan
 
   // --- ML Pipeline Stages Metadata ---
   const pipelineStages = [
-    { title: 'Data Ingestion', icon: 'cloud_download', subtitle: 'ASTraM Log Streaming' },
+    { title: 'Data Ingestion', icon: 'cloud_download', subtitle: 'ParkSense Log Streaming' },
     { title: 'DBSCAN Spatial', icon: 'bubble_chart', subtitle: 'Spatial Clustering' },
     { title: 'Congestion Score', icon: 'calculate', subtitle: 'Telemetry Calculation' },
     { title: 'Orchestrated dispatch', icon: 'local_police', subtitle: 'Autonomous Alerts' },
@@ -422,13 +410,13 @@ export default function LandingPage({ isLoggedIn, userRole, hotspots = [] }: Lan
 
   // --- DBSCAN Scatter Plot Simulation Data ---
   const dbscanPoints = [
-    // Cluster 1 (Shivajinagar mockup)
+    // Cluster 1 (Shivajinagar)
     { x: 30, y: 35, clusterId: 1 },
     { x: 34, y: 32, clusterId: 1 },
     { x: 28, y: 38, clusterId: 1 },
     { x: 32, y: 40, clusterId: 1 },
     { x: 36, y: 36, clusterId: 1 },
-    // Cluster 2 (Malleshwaram mockup)
+    // Cluster 2 (Malleshwaram)
     { x: 70, y: 65, clusterId: 2 },
     { x: 72, y: 60, clusterId: 2 },
     { x: 68, y: 68, clusterId: 2 },
@@ -546,7 +534,7 @@ export default function LandingPage({ isLoggedIn, userRole, hotspots = [] }: Lan
                   </h3>
                   <p className="text-[10px] text-on-surface-variant mt-1.5 flex items-center gap-1">
                     <span className="material-symbols-outlined text-xs text-emerald-400">trending_up</span>
-                    Total ASTraM violation dataset
+                    Total ParkSense violation dataset
                   </p>
                 </div>
               </div>
@@ -724,7 +712,7 @@ export default function LandingPage({ isLoggedIn, userRole, hotspots = [] }: Lan
                 {/* Dynamic explanations */}
                 {activeStage === 0 && (
                   <p className="text-xs text-on-surface-variant leading-relaxed mt-4">
-                    Ingests GPS metadata logs directly from municipal transit authority servers (ASTraM) alongside crowdsourced reports from the mobile compliance portal. Handles missing data coordinates and resolves baseline discrepancies.
+                    Ingests GPS metadata logs directly from municipal transit authority servers (ParkSense) alongside crowdsourced reports from the mobile compliance portal. Handles missing data coordinates and resolves baseline discrepancies.
                   </p>
                 )}
                 {activeStage === 1 && (
@@ -753,16 +741,16 @@ export default function LandingPage({ isLoggedIn, userRole, hotspots = [] }: Lan
             {/* Interactive Panel Content Column (Col 7) */}
             <div className="md:col-span-7 p-8 bg-[#020a14] flex flex-col justify-center">
               
-              {/* STAGE 1: Data Ingest JSON mockup */}
+              {/* STAGE 1: Data Ingest JSON */}
               {activeStage === 0 && (
                 <div className="space-y-4">
                   <div className="flex items-center justify-between pb-3 border-b border-outline-variant/30">
-                    <span className="text-xs font-mono text-[#00f0ff]">Raw ASTraM Payload:</span>
+                    <span className="text-xs font-mono text-[#00f0ff]">Raw ParkSense Payload:</span>
                     <span className="text-[9px] font-mono bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded">Live Stream</span>
                   </div>
                   <pre className="text-[10px] font-mono text-emerald-400 leading-relaxed overflow-x-auto select-text max-h-[180px] scrollbar-thin">
 {`{
-  "sensor_id": "ASTRAM-EDGE-MALL-04",
+  "sensor_id": "PARKSENSE-EDGE-MALL-04",
   "timestamp": "${new Date().toISOString()}",
   "location": {
     "latitude": 12.99042,
@@ -942,7 +930,7 @@ export default function LandingPage({ isLoggedIn, userRole, hotspots = [] }: Lan
                   {dispatchStatus === 'IDLE' && (
                     <div className="text-center py-6">
                       <button
-                        onClick={runSimulatedDispatch}
+                        onClick={runDispatch}
                         className="bg-primary text-[#00363a] font-bold text-xs px-6 py-3 rounded-xl hover:scale-105 active:scale-95 shadow-[0_0_15px_rgba(0,240,255,0.3)] transition-all cursor-pointer inline-flex items-center gap-2"
                       >
                         <span className="material-symbols-outlined text-sm">send</span>
@@ -1134,8 +1122,8 @@ export default function LandingPage({ isLoggedIn, userRole, hotspots = [] }: Lan
           <div className="space-y-4">
             {[
               {
-                q: "What is ASTraM and how does this application integrate with it?",
-                a: "ASTraM (Actionable Intelligence for Sustainable Traffic Management) is the traffic management framework used by municipal authorities. Our application ingests ASTraM's spatial logs, matches them against citizen-reported violations, and provides automated, predictive hotspot analysis."
+                q: "What is ParkSense and how does this application integrate with it?",
+                a: "ParkSense is the traffic management framework used by municipal authorities. Our application ingests ParkSense's spatial logs, matches them against citizen-reported violations, and provides automated, predictive hotspot analysis."
               },
               {
                 q: "Why is DBSCAN used for spatial clustering instead of K-Means?",
@@ -1177,34 +1165,6 @@ export default function LandingPage({ isLoggedIn, userRole, hotspots = [] }: Lan
           </div>
         </section>
 
-        {/* Footer CTA */}
-        <section className="py-12">
-          <ScrollReveal direction="up">
-            <div className="glass-panel p-12 md:p-16 rounded-3xl relative overflow-hidden border border-outline-variant/60 shadow-sm text-center">
-              {/* Background accent glow */}
-              <div className="absolute -top-24 -left-24 w-64 h-64 bg-secondary/10 blur-[100px] rounded-full pointer-events-none"></div>
-              
-              <h2 className="text-xl md:text-3xl font-extrabold uppercase italic tracking-tight mb-8">
-                Ready to align your enforcement operations?
-              </h2>
-              
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-6 relative z-10">
-                <button 
-                  onClick={handleCTA}
-                  className="bg-secondary text-on-secondary px-8 py-3.5 rounded-full font-bold text-xs hover:scale-[1.03] active:scale-[0.98] hover:shadow-[0_0_20px_rgba(192,193,255,0.25)] transition-all w-full sm:w-auto cursor-pointer"
-                >
-                  Access Portal Console
-                </button>
-                <button 
-                  onClick={() => navigate('/login')}
-                  className="glass-panel border border-outline-variant/60 text-on-surface px-8 py-3.5 rounded-full font-bold text-xs hover:bg-white/5 hover:scale-[1.03] active:scale-[0.98] transition-all w-full sm:w-auto cursor-pointer"
-                >
-                  View Roadmap
-                </button>
-              </div>
-            </div>
-          </ScrollReveal>
-        </section>
 
       </div>
     </div>

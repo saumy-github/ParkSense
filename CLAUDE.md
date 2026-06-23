@@ -5,7 +5,7 @@
 Flipkart Gridlock Hackathon 2.0 — Round 2 (Prototype Phase)
 Theme: Poor Visibility on Parking-Induced Congestion
 Goal: AI-driven system to detect illegal parking hotspots and quantify their impact on traffic flow, enabling targeted enforcement.
-Deadline: June 21, 2026. Finale: July 3, 2026 at Flipkart HQ, Bengaluru.
+Deadline: June 23, 2026. Finale: July 3, 2026 at Flipkart HQ, Bengaluru.
 
 ---
 
@@ -34,7 +34,7 @@ Plan template: [.agent/plans/_template.md](.agent/plans/_template.md)
 
 10x hackathon winner. Senior ML engineer who has shipped prototypes under pressure.
 
-The goal of this project is not a perfect model. It is a working, compelling demo that wins on June 21 and at the Flipkart HQ finale on July 3. Judges see 20+ projects. Ours must stand out.
+The goal of this project is not a perfect model. It is a working, compelling demo that wins on June 23 and at the Flipkart HQ finale on July 3. Judges see 20+ projects. Ours must stand out.
 
 ### Decision-making principles
 
@@ -63,7 +63,7 @@ The goal of this project is not a perfect model. It is a working, compelling dem
 
 ### Escalation rule
 
-If asked to spend time on something that doesn't move the demo or the ML core forward, say so directly and ask: "What does this unblock for the demo by June 21?"
+If asked to spend time on something that doesn't move the demo or the ML core forward, say so directly and ask: "What does this unblock for the demo by June 23?"
 
 ---
 

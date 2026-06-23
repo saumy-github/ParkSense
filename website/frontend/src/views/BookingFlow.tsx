@@ -13,7 +13,7 @@ export default function BookingFlow({ onReportSubmit, showToast }: BookingFlowPr
   const [vehicleNo, setVehicleNo] = useState<string>('KA-03-MM-1234');
   const [loadingAI, setLoadingAI] = useState<boolean>(false);
   const [evidencePhoto, setEvidencePhoto] = useState<string | null>(null);
-  
+
   // Geolocation states
   const [locationAddress, setLocationAddress] = useState<string>('Shivajinagar PS Junction, Bengaluru');
   const [locLoading, setLocLoading] = useState<boolean>(false);
@@ -38,14 +38,14 @@ export default function BookingFlow({ onReportSubmit, showToast }: BookingFlowPr
       (error) => {
         setLocLoading(false);
         console.error(error);
-        
+
         let errorMsg = 'Failed to fetch location.';
         if (error.code === error.PERMISSION_DENIED) {
           errorMsg = 'Location permission denied. Please enter address manually.';
         } else if (error.code === error.POSITION_UNAVAILABLE) {
           errorMsg = 'GPS signal unavailable. Please type location.';
         }
-        
+
         showToast?.(errorMsg, 'warning');
       },
       { timeout: 8000 }
@@ -56,12 +56,10 @@ export default function BookingFlow({ onReportSubmit, showToast }: BookingFlowPr
     setLoadingAI(true);
     // Use the 6th infraction Mercedes (citizen report) as demonstration evidence photo
     setEvidencePhoto('/infraction_6.png');
-    
-    setTimeout(() => {
-      setLoadingAI(false);
-      showToast?.('AI Verification complete. License plate recognized.', 'success');
-      setStep(3);
-    }, 1500);
+
+    setLoadingAI(false);
+    showToast?.('AI Verification complete. License plate recognized.', 'success');
+    setStep(3);
   };
 
   const handleSubmitReport = () => {
@@ -80,24 +78,24 @@ export default function BookingFlow({ onReportSubmit, showToast }: BookingFlowPr
 
   return (
     <div className="min-h-screen bg-transparent text-white flex items-start justify-center p-4 md:p-6 lg:p-12 pt-24 md:pt-28 pb-12 md:pb-20 transition-all duration-300">
-      
+
       {/* Frame Container */}
-      <div className="w-full max-w-5xl md:glass-panel md:rounded-3xl md:border md:border-[#3e3b54]/50 overflow-hidden flex flex-col md:shadow-2xl min-h-fit md:min-h-[550px] bg-[#0c0a15]/50 md:bg-[#0c0a15]/85 md:backdrop-blur-md">
+      <div className="w-full max-w-5xl bg-white rounded-3xl border border-outline-variant overflow-hidden flex flex-col shadow-2xl min-h-[550px]">
         {/* Browser Top bar mock */}
-        <div className="hidden md:flex bg-[#07060c]/90 px-6 py-3 items-center gap-3 border-b border-[#3e3b54]/40">
+        <div className="bg-surface-container-highest px-6 py-3 flex items-center gap-3 border-b border-outline-variant/60">
           <div className="flex gap-1.5 shrink-0">
             <div className="w-3 h-3 rounded-full bg-red-500/60"></div>
             <div className="w-3 h-3 rounded-full bg-yellow-500/60"></div>
             <div className="w-3 h-3 rounded-full bg-green-500/60"></div>
           </div>
-          <div className="bg-[#131221]/80 rounded-md px-4 py-1 text-[11px] text-gray-400 flex-grow max-w-md mx-auto border border-[#3e3b54]/30 flex items-center justify-center gap-1 font-mono">
-            <span className="material-symbols-outlined text-[12px] text-[#a6c8ff]">lock</span>
-            <span className="text-[#a6c8ff]">citizen.astram-parkinsight.gov.in/report</span>
+          <div className="bg-white rounded-md px-4 py-1 text-[11px] text-on-surface-variant flex-grow max-w-md mx-auto border border-outline-variant/60 flex items-center justify-center gap-1 font-mono">
+            <span className="material-symbols-outlined text-[12px]">lock</span>
+            citizen.astram-parkinsight.gov.in/report
           </div>
         </div>
 
         {/* Content Area: Split View */}
-        <div className="flex flex-col lg:flex-row flex-grow md:overflow-hidden">
+        <div className="flex flex-col lg:flex-row flex-grow overflow-hidden">
           {/* Left Side: Citizen Instructions */}
           <div className="hidden lg:flex flex-col justify-center p-8 lg:p-12 lg:w-1/2 space-y-6 bg-[#110e24]/30">
             <span className="inline-flex px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 font-bold text-[10px] uppercase tracking-wider w-fit">
@@ -110,7 +108,7 @@ export default function BookingFlow({ onReportSubmit, showToast }: BookingFlowPr
             <p className="text-sm text-gray-400 leading-relaxed">
               Help Bengaluru Traffic Police map on-street illegal parking and double-parking hotspots. Upload a photo of the offending vehicle; our AI engine automatically extracts plate numbers and dispatches nearby enforcement officers.
             </p>
-            
+
             <div className="space-y-3 pt-2">
               <div className="flex items-center gap-3">
                 <Camera className="text-indigo-400 w-5 h-5" />
@@ -128,9 +126,9 @@ export default function BookingFlow({ onReportSubmit, showToast }: BookingFlowPr
           </div>
 
           {/* Right Side: Mobile Mockup */}
-          <div className="w-full lg:w-1/2 flex items-center justify-center bg-transparent lg:bg-[#07060c]/30 p-2 sm:p-4 md:p-6 lg:border-l border-[#3e3b54]/40">
+          <div className="w-full lg:w-1/2 flex items-center justify-center bg-surface-container-low p-6 lg:border-l border-outline-variant/60">
             {/* Mobile Phone Mock */}
-            <div className="w-full max-w-md lg:w-[305px] lg:h-[525px] bg-[#0f0e1a]/90 lg:bg-[#0f0e1a] rounded-2xl lg:rounded-[2.5rem] border border-[#3e3b54]/40 lg:border-[8px] lg:border-[#5227FF]/70 relative overflow-hidden shadow-xl lg:shadow-2xl flex flex-col shrink-0 min-h-[500px] lg:min-h-0">
+            <div className="w-[305px] h-[525px] bg-white rounded-[2.5rem] border-[8px] border-primary relative overflow-hidden shadow-2xl flex flex-col shrink-0">
               {/* Mobile Top bar */}
               <div className="hidden lg:flex h-8 w-full justify-between items-center px-6 pt-3 shrink-0 text-gray-400">
                 <span className="text-[9px] font-bold">9:41 AM</span>
@@ -142,8 +140,8 @@ export default function BookingFlow({ onReportSubmit, showToast }: BookingFlowPr
               </div>
 
               {/* Mobile screen view scroll container */}
-              <div className="flex-grow flex flex-col p-4 sm:p-5 md:p-6 overflow-y-auto relative justify-between text-gray-200">
-                
+              <div className="flex-grow flex flex-col p-5 overflow-hidden relative justify-between">
+
                 {/* Step 1: Info Form */}
                 {step === 1 && (
                   <div className="space-y-4 flex flex-col justify-between h-full">
@@ -152,12 +150,12 @@ export default function BookingFlow({ onReportSubmit, showToast }: BookingFlowPr
                         <h2 className="text-lg lg:text-base font-bold text-white">Report Violation</h2>
                         <p className="text-xs lg:text-[10px] text-gray-400">Flag curbside obstructions causing delays</p>
                       </div>
-                      
+
                       <div className="space-y-3">
                         <div className="p-3 lg:p-2.5 bg-[#131224]/70 rounded-xl border border-[#3e3b54]/50">
                           <label className="text-[9px] lg:text-[8px] text-indigo-400 font-bold uppercase tracking-wider block">NEAREST TRAFFIC ZONE</label>
-                          <select 
-                            value={selectedJunction} 
+                          <select
+                            value={selectedJunction}
                             onChange={(e) => setSelectedJunction(e.target.value)}
                             className="bg-transparent border-none p-0 focus:outline-none text-sm lg:text-xs font-semibold w-full text-white mt-1 cursor-pointer"
                           >
@@ -184,20 +182,20 @@ export default function BookingFlow({ onReportSubmit, showToast }: BookingFlowPr
                               Use GPS
                             </button>
                           </div>
-                          
-                          <input 
+
+                          <input
                             type="text"
                             value={locationAddress}
                             onChange={(e) => setLocationAddress(e.target.value)}
                             placeholder="Type street name manually..."
-                            className="bg-transparent border-none p-0 focus:outline-none text-sm lg:text-xs font-semibold w-full text-white" 
+                            className="bg-transparent border-none p-0 focus:outline-none text-sm lg:text-xs font-semibold w-full text-white"
                           />
                         </div>
 
                         <div className="p-3 lg:p-2.5 bg-[#131224]/70 rounded-xl border border-[#3e3b54]/50">
                           <label className="text-[9px] lg:text-[8px] text-indigo-400 font-bold uppercase tracking-wider block">VIOLATION TYPE</label>
-                          <select 
-                            value={violationType} 
+                          <select
+                            value={violationType}
                             onChange={(e) => setViolationType(e.target.value)}
                             className="bg-transparent border-none p-0 focus:outline-none text-sm lg:text-xs font-semibold w-full text-white mt-1 cursor-pointer"
                           >
@@ -210,17 +208,17 @@ export default function BookingFlow({ onReportSubmit, showToast }: BookingFlowPr
 
                         <div className="p-3 lg:p-2.5 bg-[#131224]/70 rounded-xl border border-[#3e3b54]/50">
                           <label className="text-[9px] lg:text-[8px] text-indigo-400 font-bold uppercase tracking-wider block">VEHICLE LICENSE PLATE</label>
-                          <input 
+                          <input
                             type="text"
                             value={vehicleNo}
                             onChange={(e) => setVehicleNo(e.target.value.toUpperCase())}
-                            className="bg-transparent border-none p-0 focus:outline-none text-sm lg:text-xs font-semibold w-full text-white mt-1 font-mono uppercase" 
+                            className="bg-transparent border-none p-0 focus:outline-none text-sm lg:text-xs font-semibold w-full text-white mt-1 font-mono uppercase"
                           />
                         </div>
                       </div>
                     </div>
 
-                    <button 
+                    <button
                       onClick={() => {
                         if (!locationAddress.trim()) {
                           showToast?.('Please specify the location.', 'warning');
@@ -241,7 +239,7 @@ export default function BookingFlow({ onReportSubmit, showToast }: BookingFlowPr
                   <div className="space-y-4 flex flex-col justify-between h-full">
                     <div className="space-y-4">
                       <div className="flex items-center gap-2">
-                        <button 
+                        <button
                           onClick={() => setStep(1)}
                           className="material-symbols-outlined text-[#a6c8ff] hover:text-white p-1 hover:bg-white/5 rounded-full text-base lg:text-sm cursor-pointer bg-transparent border-none"
                         >
@@ -249,14 +247,14 @@ export default function BookingFlow({ onReportSubmit, showToast }: BookingFlowPr
                         </button>
                         <h2 className="text-lg lg:text-base font-bold text-white">Upload Proof</h2>
                       </div>
-                      
+
                       <div className="border-2 border-dashed border-[#3e3b54]/50 rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-center text-center bg-[#0f0e1a]/40 min-h-[220px] lg:min-h-[180px] space-y-4 lg:space-y-3">
                         <Camera className="text-indigo-400 w-12 h-12 lg:w-10 lg:h-10 animate-pulse" />
                         <div className="space-y-1">
                           <p className="text-sm lg:text-xs font-bold text-white">Upload Offense Photo</p>
                           <p className="text-xs lg:text-[9px] text-gray-400">Ensure vehicle license plate is visible</p>
                         </div>
-                        
+
                         <button
                           onClick={handleScanPhoto}
                           className="px-5 py-2 lg:px-4 lg:py-1.5 bg-[#2563eb]/10 border border-[#2563eb]/30 hover:bg-[#2563eb]/20 text-[#a6c8ff] font-bold text-xs lg:text-[10px] rounded-lg transition-colors cursor-pointer"
@@ -266,14 +264,13 @@ export default function BookingFlow({ onReportSubmit, showToast }: BookingFlowPr
                       </div>
                     </div>
 
-                    <button 
+                    <button
                       disabled={loadingAI}
                       onClick={handleScanPhoto}
-                      className={`w-full py-3 lg:py-2.5 rounded-xl font-bold text-sm lg:text-xs flex items-center justify-center gap-2 transition-all active:scale-98 cursor-pointer border-none mt-4 ${
-                        loadingAI 
-                          ? 'bg-indigo-900/40 text-indigo-200/55 cursor-not-allowed' 
+                      className={`w-full py-3 lg:py-2.5 rounded-xl font-bold text-sm lg:text-xs flex items-center justify-center gap-2 transition-all active:scale-98 cursor-pointer border-none mt-4 ${loadingAI
+                          ? 'bg-indigo-900/40 text-indigo-200/55 cursor-not-allowed'
                           : 'bg-gradient-to-r from-[#2563eb] to-[#5227FF] text-white font-bold hover:shadow-[0_0_20px_rgba(37,99,235,0.4)]'
-                      }`}
+                        }`}
                     >
                       {loadingAI ? (
                         <>
@@ -292,7 +289,7 @@ export default function BookingFlow({ onReportSubmit, showToast }: BookingFlowPr
                   <div className="space-y-4 flex flex-col justify-between h-full">
                     <div className="space-y-3">
                       <div className="flex items-center gap-2">
-                        <button 
+                        <button
                           onClick={() => setStep(2)}
                           className="material-symbols-outlined text-[#a6c8ff] hover:text-white p-1 hover:bg-white/5 rounded-full text-base lg:text-sm cursor-pointer bg-transparent border-none"
                         >
@@ -300,13 +297,13 @@ export default function BookingFlow({ onReportSubmit, showToast }: BookingFlowPr
                         </button>
                         <h2 className="text-lg lg:text-base font-bold text-white">AI Verification</h2>
                       </div>
-                      
+
                       {/* Image Preview & Extracted OCR */}
-                      <div className="rounded-xl overflow-hidden border border-[#3e3b54]/60 shadow-sm relative h-36 lg:h-28 bg-black">
-                        {evidencePhoto && <img src={evidencePhoto} alt="Evidence" className="w-full h-full object-cover opacity-60" />}
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0f0e1a] via-[#0f0e1a]/50 to-transparent flex flex-col justify-end p-3">
-                          <span className="text-[9px] lg:text-[8px] text-emerald-400 font-bold tracking-widest">PLATE OCR SCANNER STATUS: SUCCESS</span>
-                          <h4 className="text-base lg:text-sm font-mono font-bold text-white tracking-wider">{vehicleNo}</h4>
+                      <div className="rounded-xl overflow-hidden border border-outline-variant/60 shadow-sm relative h-28 bg-black">
+                        {evidencePhoto && <img src={evidencePhoto} alt="Evidence" className="w-full h-full object-cover opacity-70" />}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-2.5">
+                          <span className="text-[8px] text-green-400 font-bold tracking-widest">PLATE OCR SCANNER STATUS: SUCCESS</span>
+                          <h4 className="text-sm font-mono font-bold text-white tracking-wider">{vehicleNo}</h4>
                         </div>
                       </div>
 
@@ -332,7 +329,7 @@ export default function BookingFlow({ onReportSubmit, showToast }: BookingFlowPr
                       </div>
                     </div>
 
-                    <button 
+                    <button
                       onClick={handleSubmitReport}
                       className="w-full bg-gradient-to-r from-[#2563eb] to-[#5227FF] text-white py-3 lg:py-2.5 rounded-xl font-bold text-sm lg:text-xs flex items-center justify-center gap-1 hover:shadow-[0_0_20px_rgba(37,99,235,0.4)] active:scale-98 transition-all shadow-md cursor-pointer border-none font-bold mt-4"
                     >
@@ -353,7 +350,7 @@ export default function BookingFlow({ onReportSubmit, showToast }: BookingFlowPr
                         </div>
                         <div className="absolute -top-0.5 -right-0.5 w-4 h-4 lg:w-3.5 lg:h-3.5 bg-emerald-500 rounded-full border-2 border-[#0f0e1a] animate-pulse"></div>
                       </div>
-                      
+
                       <div>
                         <h2 className="text-base lg:text-sm font-bold text-white">Report Logged</h2>
                         <p className="text-xs lg:text-[9px] text-gray-400 px-2 mt-1">AI engine has broadcasted details to nearest traffic police console.</p>
@@ -393,8 +390,8 @@ export default function BookingFlow({ onReportSubmit, showToast }: BookingFlowPr
                       </div>
                     </div>
 
-                    <button 
-                      onClick={handleReset} 
+                    <button
+                      onClick={handleReset}
                       className="text-[#a6c8ff] hover:text-[#ff9ffc] font-bold text-sm lg:text-xs hover:underline mt-2 cursor-pointer bg-transparent border-none"
                     >
                       Report Another Incident

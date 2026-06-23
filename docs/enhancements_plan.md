@@ -1,4 +1,4 @@
-# ASTraM ParkInsight: Enhancements & Alignment Plan
+# ParkSense: Enhancements & Alignment Plan
 
 ## 1. Problem Statement Alignment: Are We Deviated?
 
@@ -13,7 +13,7 @@ To align with the hackathon goals, we must reposition the features as follows:
 * **The Dashboard & Map:** Show illegal parking hotspots, on-street violations, and their quantified impact on road capacity and delays (using EWR - Effective Width Reduction and SPI - Space Pressure Index).
 * **The Booking Flow:** Repurpose this as a **Citizen Traffic Violation Reporter** (where citizens can upload geo-tagged photos of illegal double-parking, contributing to the AI heatmap) OR a **Smart Loading Bay Dispatcher** (where delivery vans register loading windows, reducing random curbside double-parking). Let's go with the **Citizen Violation Reporter** as it directly targets enforcement.
 * **Rename the Application:** Shift from "AiParking" to a name that represents urban traffic enforcement. 
-  * *Recommended Name:* **ASTraM ParkInsight** (Integrates with Bengaluru Traffic Police's existing *ASTraM* - Active Traffic Management system, making it highly context-aware and realistic for the hackathon).
+  * *Recommended Name:* **ParkSense** (Integrates with Bengaluru Traffic Police's existing *ParkSense* - Active Traffic Management system, making it highly context-aware and realistic for the hackathon).
   * *Alternative Name:* **ParkVigil AI** or **CurbPulse**.
 
 ---
@@ -81,7 +81,7 @@ In `BookingFlow.tsx`, the parent container utilizes `min-h-screen flex items-cen
 ## 5. Next Steps & Implementation Tasks
 
 1. **Phase 1: Brand & Layout Refactor**
-   * Rename UI headers, titles, and logos to **ASTraM ParkInsight**.
+   * Rename UI headers, titles, and logos to **ParkSense**.
    * Resolve the vertical layout overlap bug in the mobile-frame simulator.
 2. **Phase 2: Authentication & Routing Flow**
    * Create a new `Login.tsx` view.

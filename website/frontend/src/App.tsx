@@ -59,6 +59,7 @@ function App() {
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   const [hotspots, setHotspots] = useState<HotspotSummary[]>([]);
+  const [hotspotDetails, setHotspotDetails] = useState<Record<string, any>>({});
   const [activeHotspotId, setActiveHotspotId] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -102,6 +103,10 @@ function App() {
 
   useEffect(() => {
     fetchHotspots();
+    fetch('/api/hotspots/details')
+      .then(r => r.json())
+      .then(data => setHotspotDetails(data))
+      .catch(err => console.error('Failed to fetch hotspot details', err));
   }, []);
 
   const handleLogin = (role: 'operator' | 'citizen') => {
@@ -131,7 +136,7 @@ function App() {
     return (
       <div className="flex flex-col justify-center items-center h-screen bg-[#051424] text-[#d4e4fa] gap-4">
         <div className="w-10 h-10 border-4 border-primary/20 border-t-primary rounded-full animate-spin"></div>
-        <h3 className="font-bold tracking-wide">ASTraM ParkInsight Systems Initializing...</h3>
+        <h3 className="font-bold tracking-wide">ParkSense Systems Initializing...</h3>
       </div>
     );
   }
@@ -248,7 +253,7 @@ function App() {
                             hotspots={filteredHotspots}
                             activeHotspotId={activeHotspotId}
                             setActiveHotspotId={setActiveHotspotId}
-                            customReportCount={customReportCount}
+                            hotspotDetails={hotspotDetails}
                             showToast={showToast}
                           />
                         </ProtectedRoute>
@@ -260,8 +265,6 @@ function App() {
                         <ProtectedRoute isLoggedIn={isLoggedIn} requiredRole="operator" userRole={userRole}>
                           <InfrastructureMap
                             hotspots={filteredHotspots}
-                            activeHotspotId={activeHotspotId}
-                            setActiveHotspotId={setActiveHotspotId}
                           />
                         </ProtectedRoute>
                       }
@@ -278,7 +281,7 @@ function App() {
                       path="/analytics"
                       element={
                         <ProtectedRoute isLoggedIn={isLoggedIn} requiredRole="operator" userRole={userRole}>
-                          <PerformanceReports />
+                          <PerformanceReports hotspots={filteredHotspots} />
                         </ProtectedRoute>
                       }
                     />
