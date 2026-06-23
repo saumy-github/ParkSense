@@ -1,0 +1,120 @@
+{
+  "2": {
+    "annotated_image_path": "hotspot_frames/2_annotated.jpg",
+    "frame_source": "Mapillary",
+    "mapillary_image_id": "913506166140330",
+    "total_vehicles_detected": 9,
+    "vehicle_breakdown": {
+      "car": 2,
+      "bus": 1,
+      "person": 5,
+      "truck": 1
+    },
+    "detection_confidence_avg": 0.683
+  },
+  "3": {
+    "annotated_image_path": "hotspot_frames/3_annotated.jpg",
+    "frame_source": "Mapillary",
+    "mapillary_image_id": "226204035977441",
+    "total_vehicles_detected": 9,
+    "vehicle_breakdown": {
+      "motorcycle": 2,
+      "person": 3,
+      "car": 1,
+      "bus": 2,
+      "truck": 1
+    },
+    "detection_confidence_avg": 0.688
+  },
+  "10": {
+    "annotated_image_path": "hotspot_frames/10_annotated.jpg",
+    "frame_source": "Mapillary",
+    "mapillary_image_id": "1201396830389168",
+    "total_vehicles_detected": 8,
+    "vehicle_breakdown": {
+      "car": 4,
+      "truck": 1,
+      "person": 2,
+      "motorcycle": 1
+    },
+    "detection_confidence_avg": 0.744
+  },
+  "5": {
+    "annotated_image_path": "hotspot_frames/5_annotated.jpg",
+    "frame_source": "Mapillary",
+    "mapillary_image_id": "1118548288644715",
+    "total_vehicles_detected": 4,
+    "vehicle_breakdown": {
+      "bus": 2,
+      "motorcycle": 1,
+      "person": 1
+    },
+    "detection_confidence_avg": 0.645
+  },
+  "17": {
+    "annotated_image_path": "hotspot_frames/17_annotated.jpg",
+    "frame_source": "Mapillary",
+    "mapillary_image_id": "469097168255724",
+    "total_vehicles_detected": 5,
+    "vehicle_breakdown": {
+      "car": 3,
+      "person": 1,
+      "motorcycle": 1
+    },
+    "detection_confidence_avg": 0.764
+  },
+  "33": {
+    "annotated_image_path": "hotspot_frames/33_annotated.jpg",
+    "frame_source": "Mapillary",
+    "mapillary_image_id": "1129103597559409",
+    "total_vehicles_detected": 0,
+    "vehicle_breakdown": {},
+    "detection_confidence_avg": 0.0
+  },
+  "34": {
+    "annotated_image_path": "hotspot_frames/34_annotated.jpg",
+    "frame_source": "Mapillary",
+    "mapillary_image_id": "120791047720917",
+    "total_vehicles_detected": 6,
+    "vehicle_breakdown": {
+      "car": 1,
+      "person": 4,
+      "umbrella": 1
+    },
+    "detection_confidence_avg": 0.647
+  },
+  "25": {
+    "annotated_image_path": "hotspot_frames/25_annotated.jpg",
+    "frame_source": "Mapillary",
+    "mapillary_image_id": "3772576116203316",
+    "total_vehicles_detected": 11,
+    "vehicle_breakdown": {
+      "car": 9,
+      "truck": 2
+    },
+    "detection_confidence_avg": 0.74
+  },
+  "71": {
+    "annotated_image_path": "hotspot_frames/71_annotated.jpg",
+    "frame_source": "Mapillary",
+    "mapillary_image_id": "1363867389096247",
+    "total_vehicles_detected": 6,
+    "vehicle_breakdown": {
+      "car": 4,
+      "truck": 1,
+      "bus": 1
+    },
+    "detection_confidence_avg": 0.546
+  },
+  "7": {
+    "annotated_image_path": "hotspot_frames/7_annotated.jpg",
+    "frame_source": "Mapillary",
+    "mapillary_image_id": "1476196010725519",
+    "total_vehicles_detected": 3,
+    "vehicle_breakdown": {
+      "bus": 1,
+      "person": 2
+    },
+    "detection_confidence_avg": 0.615
+  }
+}
