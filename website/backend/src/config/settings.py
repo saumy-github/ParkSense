@@ -1,9 +1,9 @@
 from pathlib import Path
 
-# src/config/settings.py is 4 levels deep from project root
-BASE_DIR = Path(__file__).resolve().parents[4]
+# src/config/settings.py is 2 levels deep from backend root
+BASE_DIR = Path(__file__).resolve().parents[2]
 
-PROCESSED_DIR = BASE_DIR / "ML" / "data" / "processed"
+PROCESSED_DIR = BASE_DIR / "data"
 
 SUMMARY_PATH        = PROCESSED_DIR / "hotspots_summary.json"
 DETAILS_PATH        = PROCESSED_DIR / "hotspots_details.json"
